@@ -12,7 +12,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = (props: ButtonProps) => {
   const {
     href,
-    isFullWidth = false,
     disabled = false,
     children,
     type = "button",
