@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import { useState } from "react";
 import axios from "axios";
 import Button from "components/Button";
@@ -15,7 +14,7 @@ const App = () => {
     }
   );
 
-  return <Button children={message} />;
+  return <Button>{message}</Button>;
 };
 
 export default App;

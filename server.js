@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// import bodyParser from "body-parser";
-// import cors from "cors";
-// import { properties } from "./config/properties.js";
-// import apiRoutes from "./routes/routes.js";
-// import { fileURLToPath } from "url";
-// import { dirname } from "path";
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const morgan = require("morgan");
 const properties = require("./config/properties");
 const apiRoutes = require("./routes/routes");
 
@@ -29,6 +23,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParserJSON);
+app.use(morgan("common"));
 app.use(bodyParserURLEncoded);
 app.use("/api", router);
 apiRoutes(router);
