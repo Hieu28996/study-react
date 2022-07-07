@@ -4,17 +4,16 @@ import Button from "components/Button";
 
 const App = () => {
   const [message, setMessage] = useState(null);
-  axios.get("http://localhost:4000/api/top_pages").then(
+  axios.get("http://localhost:4000/api/test/all").then(
     (res) => {
-      const text = res.data.message;
-      setMessage(text);
+      console.log(res);
     },
     (err) => {
       console.log(err);
     }
   );
 
-  return <Button>{message}</Button>;
+  return <Button>1231</Button>;
 };
 
 export default App;
