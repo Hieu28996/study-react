@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -24,15 +23,13 @@ const router = express.Router();
 
 app.use(cors());
 app.use(bodyParserJSON);
-app.use(morgan("common"));
 app.use(bodyParserURLEncoded);
-app.use("/api", router);
+app.use(morgan("common"));
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT} port.`);
 });
 
-// connect database
 const db = require("./models");
 const Role = db.role;
 
@@ -87,5 +84,5 @@ mongoose
   }
   initial;
 
-  // require("./routes/auth.routes")(app);
-  // require("./routes/user.routes")(app);
+  require("./routes/auth.routes")(app);
+  require("./routes/user.routes")(app);
