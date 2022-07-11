@@ -1,4 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import classnames from "classnames";
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   as?: "button" | "a" | "input";
   href?: string;
@@ -6,30 +8,41 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   children: ReactNode;
   className?: string;
-  isPc?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
   const {
     href,
-    disabled = false,
     children,
     type = "button",
     className,
-    isPc,
     ...rest
   } = props;
 
   if (typeof href === "string" && href !== "") {
     return (
-      <a href={href} rel="noopener noreferrer">
+      <a
+        href={href}
+        rel="noopener noreferrer"
+        className={classnames(
+          "btn",
+          className
+        )}
+      >
         {children}
       </a>
     );
   }
 
   return (
-    <button type={type} disabled={disabled} {...rest}>
+    <button
+      type={type}
+      className={classnames(
+        "btn",
+        className
+      )}
+      {...rest}
+    >
       {children}
     </button>
   );

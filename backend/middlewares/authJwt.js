@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
+var dotenv = require("dotenv");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
+
+dotenv.config();
 
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
@@ -11,7 +13,7 @@ verifyToken = (req, res, next) => {
     return res.status(403).send({ message: "No token provided!" });
   }
 
-  jwt.verify(token, config.secret, (err, decoded) => {
+  jwt.verify(token, process.env.JWB_ACCESS_KEY, (err, decoded) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
     }

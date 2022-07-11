@@ -2,7 +2,9 @@
 @import "helper/mixin";
 
 // common
-@import "common/common";
 @import "common/reset";
+@import "common/common";
 
 // components
+@import "components/button";
+@import "components/input";

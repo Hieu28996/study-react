@@ -4,12 +4,14 @@ const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const authRoute = require("./routes/auth.routes");
+const userRoute = require("./routes/user.routes");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 const app = express();
 const bodyParserJSON = bodyParser.json();
 const bodyParserURLEncoded = bodyParser.urlencoded({ extended: true });
-const router = express.Router();
 // const whitelist = properties.CORS;
 // const corsOptions = {
 //   origin: function (origin, callback) {
@@ -25,6 +27,7 @@ app.use(cors());
 app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);
 app.use(morgan("common"));
+app.use(cookieParser());
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT} port.`);
@@ -84,5 +87,5 @@ mongoose
   }
   initial;
 
-  require("./routes/auth.routes")(app);
-  require("./routes/user.routes")(app);
+  app.use("/api/auth", authRoute);
+  app.use("/api/test", userRoute);
