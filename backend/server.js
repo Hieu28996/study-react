@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+// const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -23,7 +23,7 @@ const bodyParserURLEncoded = bodyParser.urlencoded({ extended: true });
 //   },
 // };
 
-app.use(cors());
+// app.use(cors());
 app.use(bodyParserJSON);
 app.use(bodyParserURLEncoded);
 app.use(morgan("common"));
