@@ -7,13 +7,13 @@ const Role = db.role;
 
 const generateAccessToken = (user) => {
   return jwt.sign({ id: user.id, admin: user.admin }, process.env.JWB_ACCESS_KEY, {
-    expiresIn: "30s" // 24 hours
+    expiresIn: "30s"
   });
 };
 
 const generateRefreshToken = (user) => {
   return jwt.sign({ id: user.id, admin: user.admin }, process.env.JWB_REFRESH_KEY, {
-    expiresIn: "365d" // 24 hours
+    expiresIn: "365d"
   });
 };
 
@@ -103,7 +103,6 @@ exports.signin = async (req, res) => {
         ...others,
         accessToken: token
       });
-      console.log(req.cookie);
     }
     let authorities = [];
     for (let i = 0; i < user.roles.length; i++) {
@@ -119,7 +118,8 @@ exports.requestRefreshToken = async (req, res) => {
   }
   jwt.verify(refreshToken, process.env.JWB_REFRESH_KEY, (err, user) => {
     if(err) {
-      console.log(err);
+      res.status(500).send({ message: err });
+      return;
     }
     const newAccessToken = generateAccessToken(user);
     const newRefreshToken = generateRefreshToken(user);

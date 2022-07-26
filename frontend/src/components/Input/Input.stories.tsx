@@ -10,7 +10,7 @@ const Template: ComponentStory<typeof Input> = (args) => (
   <Input {...args} />
 );
 
-export const InputLogin = Template.bind({});
-InputLogin.args = {
+export const InputDefault = Template.bind({});
+InputDefault.args = {
   
 };

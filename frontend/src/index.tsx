@@ -1,14 +1,16 @@
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import App from "./App";
 import "assets/scss/storybook-styles.scss";
 
 const root = createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <StrictMode>
+  <Provider store={store}>
     <App />
-  </StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

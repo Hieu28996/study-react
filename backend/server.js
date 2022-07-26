@@ -12,16 +12,6 @@ dotenv.config();
 const app = express();
 const bodyParserJSON = bodyParser.json();
 const bodyParserURLEncoded = bodyParser.urlencoded({ extended: true });
-// const whitelist = properties.CORS;
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-// };
 
 app.use(cors());
 app.use(bodyParserJSON);
@@ -87,5 +77,5 @@ mongoose
   }
   initial;
 
-  app.use("/api/auth", authRoute);
-  app.use("/api/test", userRoute);
+app.use("/api/auth", authRoute);
+app.use("/api/test", userRoute);

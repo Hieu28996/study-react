@@ -8,11 +8,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   children: ReactNode;
   className?: string;
+  color?: string;
 }
 
 const Button = (props: ButtonProps) => {
   const {
     href,
+    color,
+    isFullWidth,
     children,
     type = "button",
     className,
@@ -26,6 +29,8 @@ const Button = (props: ButtonProps) => {
         rel="noopener noreferrer"
         className={classnames(
           "btn",
+          isFullWidth && "btn_full",
+          color && `btn_${color}`,
           className
         )}
       >
@@ -39,6 +44,8 @@ const Button = (props: ButtonProps) => {
       type={type}
       className={classnames(
         "btn",
+        isFullWidth && "btn_full",
+        color && `btn_${color}`,
         className
       )}
       {...rest}

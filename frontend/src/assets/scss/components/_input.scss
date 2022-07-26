@@ -22,4 +22,12 @@
     margin-top: 10px;
     color: red;
   }
+
+  & + .input {
+    margin-top: 10px;
+  }
+
+  & + .btn_wrap {
+    margin-top: 10px;
+  }
 }

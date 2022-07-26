@@ -6,10 +6,18 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   disabled?: boolean;
   error?: string;
+  type?: string
 }
 
 const Input = forwardRef(function Input(props: InputProps, ref: Ref<HTMLInputElement>) {
-  const { label, className, error, placeholder } = props;
+  const {
+    type = "text",
+    label,
+    className,
+    error,
+    placeholder,
+    ...rest
+  } = props;
   const id = useId();
 
   return <div className={classnames(
@@ -19,8 +27,9 @@ const Input = forwardRef(function Input(props: InputProps, ref: Ref<HTMLInputEle
     <input
       ref={ref}
       id={id}
-      type="text"
+      type={type}
       placeholder={placeholder}
+      {...rest}
     />
     <label
       htmlFor={id}
