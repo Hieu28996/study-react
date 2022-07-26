@@ -1,10 +1,12 @@
 // import { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "pages/Login";
 import Home from "pages/Home";
 
-const App = () => {
+const App = () => {  
+  axios.defaults.baseURL = "http://localhost:4000";
+
   return (
     <Router>
       <div className="App"> 
