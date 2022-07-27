@@ -1,8 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "components/Button";
 import Input from "components/Input";
+import Loading from "components/Loading";
 import { loginUser } from "redux/apiRequest";
 
 export interface LoginUser {
@@ -35,22 +36,28 @@ const Login = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    const user: LoginUser = {
-      username: username,
-      password: password
-    };
-
     if(username && !password) {
       setErrorMess("Please enter password");
+      return;
     } else if (!username && password) {
       setErrorMess("Please enter username");
+      return;
     } else if (!username && !password) {
       setErrorMess("Please enter information");
+      return;
     } else {
+      const user: LoginUser = {
+        username: username,
+        password: password
+      };
       loginUser(user, dispatch, navigate);
-      error ? setErrorMess("Incorrect account or password") : setErrorMess("")
+      error ? setErrorMess("Incorrect account or password") : setErrorMess("");
     }
   }
+
+  useEffect(() => {
+    error && setErrorMess("Incorrect account or password");
+  }, [error])
 
   return(
     <div className="login">
@@ -95,6 +102,9 @@ const Login = () => {
           </Button>
         </div>
       </form>
+      {loading &&
+        <Loading/>
+      }
     </div>
   )
 }

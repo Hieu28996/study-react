@@ -14,13 +14,13 @@
     outline: none;
 
     &::placeholder {
-      color: $blue;
+      color: $orangeLight;
     }
   }
 
   &_error {
     margin-top: 10px;
-    color: red;
+    color: $red;
   }
 
   & + .input {
