@@ -1,15 +1,14 @@
-// import { useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "pages/Login";
 import Home from "pages/Home";
 
 const App = () => {  
-  axios.defaults.baseURL = "http://localhost:4000";
+  axios.defaults.baseURL = process.env.REACT_APP_SERVER_REQUEST;
 
   return (
     <Router>
-      <div className="App"> 
+      <div className="wrap"> 
         <Routes>
           <Route path="/" element={ <Home />} />
           <Route path="/login" element={ <Login />} />
