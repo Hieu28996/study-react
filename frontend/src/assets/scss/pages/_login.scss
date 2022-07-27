@@ -5,3 +5,11 @@
   margin: 0 auto;
   align-items: center;
 }
+
+.form {
+  &_error {
+    padding: 5px 0;
+    color: red;
+    font-size: 12px;
+  }
+}
