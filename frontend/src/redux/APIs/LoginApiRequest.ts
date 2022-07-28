@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginStart, loginSuccess, loginFail } from "./authSlice";
+import { loginStart, loginSuccess, loginFail } from "../Slice/LoginSlice";
 import { LoginUser } from "pages/Login/Login";
 import { AppDispatch } from "redux/store";
 

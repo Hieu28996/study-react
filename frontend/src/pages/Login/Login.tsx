@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "components/Button";
 import Input from "components/Input";
 import Loading from "components/Loading";
-import { loginUser } from "redux/apiRequest";
+import { loginUser } from "redux/APIs/LoginApiRequest";
 
 export interface LoginUser {
   username?: string;
@@ -12,8 +12,8 @@ export interface LoginUser {
 };
 
 export interface UserState {
-  auth: {
-    login: {
+  login: {
+    loginState: {
       currentUser:{
         username: string,
         password: string
@@ -30,8 +30,8 @@ const Login = () => {
   const [errorMess, setErrorMess] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const error = useSelector((state: UserState) => state.auth.login.error);
-  const loading = useSelector((state: UserState) => state.auth.login.isFetching);
+  const error = useSelector((state: UserState) => state.login.loginState.error);
+  const loading = useSelector((state: UserState) => state.login.loginState.isFetching);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -64,7 +64,9 @@ const Login = () => {
       <form
         onSubmit={handleSubmit}
       >
-        <legend>Login Form</legend>
+        <fieldset>
+          <legend>Login Form</legend>
+        </fieldset>
         <Input
           name="username"
           placeholder="User name"
@@ -97,6 +99,7 @@ const Login = () => {
           </Button>
           <Button
             isFullWidth
+            onClick={() => navigate("/register")}
           >
             Register
           </Button>
