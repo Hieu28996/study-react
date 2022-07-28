@@ -12,9 +12,15 @@
     color: $gray;
     line-height: 32px;
     outline: none;
+    transition: border-color .2s;
+    border-radius: 4px;
+
+    &:hover {
+      border-color: $blue;
+    }
 
     &::placeholder {
-      color: $orangeLight;
+      color: rgba($color: #000, $alpha: .2);
     }
   }
 

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const loginSlice = createSlice({
+const LoginSlice = createSlice({
   name: "login",
   initialState: {
     loginState: {
@@ -30,6 +30,6 @@ export const {
   loginStart,
   loginSuccess,
   loginFail,
-} = loginSlice.actions;
+} = LoginSlice.actions;
 
-export default loginSlice.reducer;
+export default LoginSlice.reducer;

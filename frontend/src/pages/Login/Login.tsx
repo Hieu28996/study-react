@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "components/Button";
 import Input from "components/Input";
 import Loading from "components/Loading";
-import { loginUser } from "redux/apiRequest";
+import { loginUser } from "redux/APIs/LoginApiRequest";
 
 export interface LoginUser {
   username?: string;
@@ -99,6 +99,7 @@ const Login = () => {
           </Button>
           <Button
             isFullWidth
+            onClick={() => navigate("/register")}
           >
             Register
           </Button>

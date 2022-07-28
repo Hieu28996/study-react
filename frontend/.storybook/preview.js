@@ -1,4 +1,4 @@
-import "!style-loader!css-loader!sass-loader!../src/assets/scss/storybook-styles.scss";
+import "!style-loader!css-loader!sass-loader!../src/assets/scss/styles.scss";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

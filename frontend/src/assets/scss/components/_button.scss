@@ -12,11 +12,19 @@
   color: #262626;
   line-height: 34px;
   text-align: center;
+  border-radius: 4px;
+  // transition: background-color .2s, border-color .2s, color .2s;
+
+  // &:hover {
+  //   background-color: $white;
+  //   border-color: $orangeLight;
+  //   color: $black;
+  // }
 
   &_primary {
     border-color: $orange;
     background-color: $orange;
-    color: #fff;
+    color: $white;
   }
 
   &_full {
