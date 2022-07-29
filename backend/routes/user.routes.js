@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { authJwt } = require("../middlewares");
+const { authJwt, verifyEditUser } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 
 router.get("/all", controller.allAccess);
@@ -13,5 +13,10 @@ router.get(
   "/admin",
   [authJwt.verifyToken, authJwt.isAdmin],
   controller.adminBoard
+);
+router.patch(
+  "/user/update",
+  [authJwt.verifyToken, verifyEditUser.checkDuplicateUsernameOrEmail],
+  controller.userEdit
 );
 module.exports = router;

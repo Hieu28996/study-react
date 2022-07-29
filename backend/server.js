@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth.routes");
 const userRoute = require("./routes/user.routes");
+const postRoute = require("./routes/post.routes");
 const cookieParser = require("cookie-parser");
 
 dotenv.config();
@@ -22,6 +23,21 @@ app.use(cookieParser());
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT} port.`);
 });
+
+// Step 5 - set up multer for storing uploaded files
+
+// var multer = require('multer');
+
+// var storage = multer.diskStorage({
+// 	destination: (req, file, cb) => {
+// 		cb(null, 'uploads')
+// 	},
+// 	filename: (req, file, cb) => {
+// 		cb(null, file.fieldname + '-' + Date.now())
+// 	}
+// });
+
+// var upload = multer({ storage: storage });
 
 const db = require("./models");
 const Role = db.role;
@@ -78,4 +94,5 @@ mongoose
   initial;
 
 app.use("/api/auth", authRoute);
-app.use("/api/test", userRoute);
+app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);

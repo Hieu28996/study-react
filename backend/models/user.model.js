@@ -6,6 +6,14 @@ const User = mongoose.model(
     username: String,
     email: String,
     password: String,
+    avatar:{
+      data: Buffer,
+      contentType: String
+    },
+    post: {
+      type: mongoose.Types.ObjectId,
+      ref: "Post",
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
