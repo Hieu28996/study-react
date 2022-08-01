@@ -15,6 +15,7 @@ export interface UserState {
   login: {
     loginState: {
       currentUser:{
+        avatar: any;
         username: string,
         password: string
       },

@@ -28,7 +28,7 @@ const Register = () => {
       email: email,
       roles: ["user"]
     };
-    if(!username || !password || !email) {
+    if(username && password && email) {
       registerUser(SignUpUser, dispatch, navigate);
     }
   }
@@ -78,7 +78,7 @@ const Register = () => {
           </Button>
           <Button
             isFullWidth
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
           >
             Login
           </Button>
