@@ -16,6 +16,23 @@ exports.allPost = (req, res) => {
   })
 };
 
+exports.getPost = async (req, res) => {
+  await Posts.findOne({ _id: req.body.id })
+  .exec((err, post) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (!post) {
+      res.status(404).send({ message: "post Not found." });
+      return;
+    } else {
+      res.status(200).send({ post: post });
+      return;
+    }
+  })
+};
+
 exports.createPost = (req, res) => {
   const post = new Posts({
     title: req.body.title,
@@ -50,8 +67,27 @@ exports.createPost = (req, res) => {
   })
 };
 
-exports.deletePost = (req, res) => {
-  res.status(200).send("delete post");
+exports.deletePost = async (req, res) => {
+  await Posts.findOne(
+    { _id: req.body.id},
+    (err, post) => {
+      if(err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      if(!post) {
+        res.status(500).send({ message: "Don't find the post"});
+        return;
+      } else {
+        post.remove(err => {
+          if(err) {
+            res.status(500).send({ message: err });
+          }
+        })
+        res.status(200).send({ message: "Delete post successfully!" });
+        return;
+      }
+    });
 };
 exports.editPost = (req, res) => {
   res.status(200).send("delete post");
