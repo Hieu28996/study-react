@@ -4,9 +4,7 @@ import { getAllUser } from "redux/APIs/AllUserApiRequest";
 
 const Users = () => {
 	const dispatch = useDispatch();
-	const users = useSelector(
-		(state: any) => state.allUser.allUserState.allUser.users
-	);
+	const users = useSelector((state: any) => state.allUser.allUserState.allUser.users);	
 
 	useEffect(() => {
 		getAllUser(dispatch);

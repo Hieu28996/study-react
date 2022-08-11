@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Button from "components/Button";
 import Input from "components/Input";
 import { useDispatch } from "react-redux";
@@ -10,11 +10,13 @@ export interface SignUpUser {
   password?: string;
   email?: string;
   roles?: Array<string>;
+  fileUpload?: any;
 };
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [fileUpload, setFileUpload] = useState({});
   const [passwordConf, setPasswordConf] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
@@ -26,12 +28,18 @@ const Register = () => {
       username: username,
       password: password,
       email: email,
-      roles: ["user"]
+      roles: ["user"],
+      fileUpload: fileUpload
     };
     if(username && password && email) {
       registerUser(SignUpUser, dispatch, navigate);
     }
   }
+
+  // const SelectFile = (e: React.ChangeEvent) => {
+  //   const target = e.target as HTMLInputElement;
+  //   const file = target.files[0] as FileList;
+  // }
 
   return(
     <div className="register">
@@ -46,27 +54,37 @@ const Register = () => {
           name="username"
           placeholder="User name"
           defaultValue={username}
-          onChange={(e) => {setUsername(e.target.value)}}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <Input
           name="email"
           placeholder="username@gmail.com"
           defaultValue={email}
-          onChange={(e) => {setEmail(e.target.value)}}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Input
           type="password"
           name="password"
           placeholder="Password"
           defaultValue={password}
-          onChange={(e) => {setPassword(e.target.value)}}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <Input
           type="password"
           name="passwordConf"
           placeholder="Password confirm"
           defaultValue={passwordConf}
-          onChange={(e) => {setPasswordConf(e.target.value)}}
+          onChange={(e) => setPasswordConf(e.target.value)}
+        />
+        <Input
+          type="file"
+          name="myFile"
+          onChange={(e) => {
+            const target = e.target as HTMLInputElement;
+            const fileList = target.files as FileList;
+            setFileUpload(fileList[0]);
+            
+          }}
         />
         <div className="btn_wrap">
           <Button
