@@ -73,7 +73,11 @@ const LayoutAdmin = (props: LayoutAdminProp) => {
 				</ul>
 			</nav>
 			<main className="main_wrap">
-				{children}
+				<div className="main_ct">
+					<div className="card">
+						<Outlet />
+					</div>
+				</div>
 			</main>
 		</>
 	);
