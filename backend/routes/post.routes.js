@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const { authJwt } = require("../middlewares");
+const { authJwt, verifyEditUser } = require("../middlewares");
 const controller = require("../controllers/post.controller");
 
+router.post("/create",
+  authJwt.verifyToken,
+  controller.createPost);
+
 router.get("/all", controller.allPost);
-router.get("/post", authJwt.verifyToken, controller.getPost);
-router.post("/create", authJwt.verifyToken, controller.createPost);
-router.delete("/delete", authJwt.verifyToken, controller.deletePost);
 
 module.exports = router;
