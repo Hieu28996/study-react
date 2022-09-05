@@ -11,8 +11,8 @@ const App = () => {
 	axios.defaults.baseURL = process.env.REACT_APP_SERVER_REQUEST;
 
 	return (
-		<Router>
-			<div className="wrap">
+		<div className="wrap">
+			<Router>
 				<Routes>
 					<Route path="/" element={<Login />} />
 					<Route path="/home" element={<Home />} />
@@ -22,8 +22,8 @@ const App = () => {
 						<Route path="users" element={<Users />} />
 					</Route>
 				</Routes>
-			</div>
-		</Router>
+			</Router>
+		</div>
 	);
 };
 

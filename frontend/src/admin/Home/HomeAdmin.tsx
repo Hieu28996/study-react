@@ -1,7 +1,21 @@
 import LayoutAdmin from "admin/Layout";
-import { Outlet } from "react-router-dom";
+import { UserState } from "pages/Login/Login";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const HomeAdmin = () => {
+	const navigate = useNavigate()
+	const currentUser = useSelector(
+		(state: UserState) => state.login.loginState.currentUser
+	);
+
+	useEffect(() => {
+		if(!currentUser) {
+			navigate(`/admin/login`)
+		}
+	}, [currentUser, navigate])
+
 	return (
 		<LayoutAdmin>
 			<div className="main_ct">

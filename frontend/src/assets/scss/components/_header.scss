@@ -1,0 +1,86 @@
+.header {
+  display: flex;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo_link {
+    display: flex;
+    font-size: 0;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gnb {
+    margin-left: 20px;
+  }
+
+  .search_form {
+    width: 470px;
+    margin: 0 20px;
+  }
+
+  .search_history {
+    display: none;
+  }
+
+  .right_group {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+
+    .controls {
+      display: flex;
+      gap: 20px;
+
+      &_link {
+        display: inline-flex;
+      }
+
+      &+.controls {
+        position: relative;
+        margin-left: 30px;
+
+        &:before {
+          display: inline-flex;
+          position: absolute;
+          left: -15px;
+          width: 1px;
+          height: 100%;
+          background-color: #000;
+          opacity: .2;
+          content: '';
+        }
+      }
+    }
+
+    .account {
+      width: 150px;
+      margin-left: 40px;
+      padding: 10px 20px;
+
+      &_avatar {
+        display: inline-flex;
+        background-color: $gray2;
+        border-radius: 2px;
+        border: 1px solid $gray2;
+      }
+
+      &_toggle {
+        display: flex;
+        position: relative;
+        width: 100%;
+        align-items: center;
+      }
+
+      &_info {
+        margin-left: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+      }
+
+
+    }
+  }
+}

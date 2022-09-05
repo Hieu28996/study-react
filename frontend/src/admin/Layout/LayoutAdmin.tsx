@@ -23,7 +23,7 @@ const LayoutAdmin = (props: LayoutAdminProp) => {
 						</a>
 					</h1>
 					<ul className="header_control">
-						{currentUser.avatar && (
+						{currentUser?.avatar && (
 							<li className="avatar">
 								<img
 									src="https://scontent.fhan14-2.fna.fbcdn.net/v/t1.30497-1/143086968_2856368904622192_1959732218791162458_n.png?stp=cp0_dst-png_p40x40&_nc_cat=1&ccb=1-7&_nc_sid=7206a8&_nc_ohc=1VCfoj_TtCEAX8vHit7&_nc_ht=scontent.fhan14-2.fna&oh=00_AT_loeXn7TwzItdFeQ_dAhIn5JCHUaduqEBDxrKVj7DH3g&oe=6309BFF8"
@@ -31,7 +31,7 @@ const LayoutAdmin = (props: LayoutAdminProp) => {
 								/>
 							</li>
 						)}
-						<li>{currentUser.username}</li>
+						<li>{currentUser?.username}</li>
 						<li>
 							<button type="button" className="btn_logout">
 								Logout

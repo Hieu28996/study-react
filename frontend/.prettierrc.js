@@ -1,5 +1,5 @@
 module.exports = {
   endOfLine: "auto",
+  useTabs: true,
   tabWidth: 2,
-  useTabs: true
 };

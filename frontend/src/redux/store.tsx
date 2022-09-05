@@ -8,6 +8,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  Persistor,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"
 import logger from "redux-logger";
@@ -30,6 +31,6 @@ export const store = configureStore({
   }).concat(logger),
 })
 
-export const persistor = persistStore(store);
+export const persistor: Persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;

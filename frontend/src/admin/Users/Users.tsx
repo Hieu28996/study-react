@@ -1,11 +1,11 @@
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUser } from "redux/APIs/AllUserApiRequest";
 
 const Users = () => {
 	const dispatch = useDispatch();
 	const users = useSelector(
-		(state: any) => state.allUser.allUserState.allUser.users
+		(state: any) => state.allUser.allUserState.allUser?.users
 	);
 
 	useEffect(() => {
@@ -22,12 +22,10 @@ const Users = () => {
 							{Object.keys(obj).map((item: any, index: number) => {
 								if (item === "username" || item === "password") {
 									return (
-										<Fragment key={index}>
-											<button type="button">
-												<span>{item}</span>
-												<span style={{ marginLeft: "20px" }}>{obj[item]}</span>
-											</button>
-										</Fragment>
+										<button type="button" key={index}>
+											<span>{item}</span>
+											<span style={{ marginLeft: "20px" }}>{obj[item]}</span>
+										</button>
 									);
 								}
 							})}
