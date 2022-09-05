@@ -9,7 +9,7 @@ const Posts = mongoose.model(
     content: {
       type: String,
     },
-    countLike: Number,
+    interactive: Number,
     author: {
       type: mongoose.Types.ObjectId,
       ref: "User"

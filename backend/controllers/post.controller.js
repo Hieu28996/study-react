@@ -20,7 +20,7 @@ exports.createPost = (req, res) => {
   const post = new Posts({
     title: req.body.title,
     content: req.body.content,
-    countLike: req.body.countLike
+    interactive: req.body.interactive
   })
 
   post.save((err, post) => {

@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Input from "components/Input";
 import { useSelector } from "react-redux";
 import { ReactComponent as Logo } from "assets/images/logo/logo.svg";
@@ -94,6 +95,12 @@ const Header = () => {
 							) : (
 								<IconAvatar width={24} height={24} color="#fff" />
 							)}
+							<span
+								className={classNames(
+									"account_status",
+									user.status && `is_${user.status}`
+								)}
+							></span>
 						</div>
 						<div className="account_info">
 							<span>{user.username}</span>
@@ -103,7 +110,6 @@ const Header = () => {
 							width={24}
 							height={24}
 							color="#000"
-							style={{ position: "absolute" }}
 						/>
 					</button>
 				</div>

@@ -2,7 +2,6 @@
   display: flex;
   padding: 0 20px;
   align-items: center;
-  justify-content: space-between;
 
   .logo_link {
     display: flex;
@@ -12,22 +11,26 @@
   }
 
   .gnb {
-    margin-left: 20px;
+    margin-left: 40px;
   }
 
   .search_form {
+    position: relative;
     width: 470px;
-    margin: 0 20px;
+    margin: 0 40px;
   }
 
   .search_history {
     display: none;
+    position: absolute;
+    width: 100%;
   }
 
   .right_group {
     display: flex;
-    margin-left: 20px;
+    margin-left: 60px;
     align-items: center;
+    flex: 1 0;
 
     .controls {
       display: flex;
@@ -55,12 +58,11 @@
     }
 
     .account {
-      width: 150px;
-      margin-left: 40px;
-      padding: 10px 20px;
+      margin-left: auto;
 
       &_avatar {
         display: inline-flex;
+        position: relative;
         background-color: $gray2;
         border-radius: 2px;
         border: 1px solid $gray2;
@@ -69,8 +71,32 @@
       &_toggle {
         display: flex;
         position: relative;
-        width: 100%;
+        width: 200px;
+        padding: 10px 20px;
+        box-sizing: border-box;
         align-items: center;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        transition: border-color .2s;
+
+        &:hover {
+          border-color: $blue;
+        }
+      }
+
+      &_status {
+        display: inline-flex;
+        position: absolute;
+        right: -2px;
+        bottom: -2px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        border: 1px solid $white;
+
+        &.is_online {
+          background-color: $green;
+        }
       }
 
       &_info {
@@ -80,7 +106,10 @@
         line-height: 16px;
       }
 
-
+      .ic_toggle {
+        margin-left: auto;
+        rotate: 180deg;
+      }
     }
   }
 }

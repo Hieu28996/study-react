@@ -4,21 +4,29 @@
   .btn_gnb {
     display: inline-flex;
     width: 100%;
-    padding: 10px 40px;
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
+    border: 1px solid transparent;
+    transition: border-color .2s;
+    border-radius: 4px;
+
+    &:hover {
+      border-color: $blue;
+    }
 
     .ic_toggle {
+      rotate: 180deg;
       transition: rotate .2s;
     }
 
     &.is_toggle {
       .ic_toggle {
-        rotate: 180deg;
+        rotate: 0;
       }
     }
   }
