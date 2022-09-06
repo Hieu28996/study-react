@@ -10,9 +10,9 @@ import { ReactComponent as IconPlus } from "assets/images/icon/ic_plus.svg";
 import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
 // import { ReactComponent as IconSearch } from "assets/images/icon/ic_search.svg";
 
-const Header = () => {
+const Header = (props: any) => {
+	const { user } = props;
 	const History = ["javascript", "node", "reactjs"];
-	const user = useSelector((state: any) => state.login.loginState.currentUser);
 
 	return (
 		<header className="header">
@@ -91,7 +91,7 @@ const Header = () => {
 					<button type="button" className="account_toggle">
 						<div className="account_avatar">
 							{Object.keys(user.avatar).length ? (
-								<img src={user.avatar} />
+								<img src={user.avatar} alt="" />
 							) : (
 								<IconAvatar width={24} height={24} color="#fff" />
 							)}

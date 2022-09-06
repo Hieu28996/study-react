@@ -5,6 +5,8 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
+let refreshTokens = [];
+
 const generateAccessToken = (user) => {
   return jwt.sign({ id: user.id, admin: user.admin }, process.env.JWB_ACCESS_KEY, {
     expiresIn: "30s"
@@ -90,7 +92,6 @@ exports.signin = async (req, res) => {
         message: "Invalid Password!"
       });
     }
-    const { password, ...others} = user._doc;
     if(user && passwordIsValid) {
       const token = generateAccessToken(user);
       const refreshToken = generateRefreshToken(user);
@@ -99,6 +100,7 @@ exports.signin = async (req, res) => {
         secure: false,
         sameSite: "strict",
       });
+      const { password, ...others} = user._doc;
       res.status(200).send({
         ...others,
         accessToken: token
@@ -123,6 +125,7 @@ exports.requestRefreshToken = async (req, res) => {
     }
     const newAccessToken = generateAccessToken(user);
     const newRefreshToken = generateRefreshToken(user);
+    refreshTokens.push(newRefreshToken);
     res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,
       secure: false,

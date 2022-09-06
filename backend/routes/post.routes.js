@@ -6,6 +6,6 @@ router.post("/create",
   authJwt.verifyToken,
   controller.createPost);
 
-router.get("/all", controller.allPost);
+router.get("/all", authJwt.verifyToken, controller.allPost);
 
 module.exports = router;
