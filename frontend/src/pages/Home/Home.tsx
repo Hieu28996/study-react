@@ -9,9 +9,7 @@ import { loginSuccess } from "redux/Slice/LoginSlice";
 const Home = () => {
 	const dispatch = useDispatch();
 	const User = useSelector((state: any) => state.login.loginState.currentUser);
-	const Posts = useSelector(
-		(state: any) => state.posts.postsState.posts?.posts
-	);
+	const Posts = useSelector((state: any) => state.posts.postsState);
 	const refreshToken = useRefreshToken(User, dispatch, loginSuccess);
 
 	useEffect(() => {
@@ -30,7 +28,7 @@ const Home = () => {
 				<div className="left_group">
 					<div className="create_post"></div>
 					<div className="post_wrap">
-						{Posts?.map((item: any, index: any) => {
+						{Posts?.posts?.posts.map((item: any, index: any) => {
 							return (
 								<Fragment key={index}>
 									<Post
@@ -38,6 +36,7 @@ const Home = () => {
 										content={item.content}
 										interactive={item.interactive}
 										title={item.title}
+										isLoading={Posts.isLoading}
 									/>
 								</Fragment>
 							);

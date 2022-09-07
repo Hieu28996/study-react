@@ -15,6 +15,7 @@ const PostSlice = createSlice({
     },
     postSuccess: (state, action) => {
       state.postsState.posts = action.payload;
+      state.postsState.isLoading = false;
     },
     postFail: state => {
       state.postsState.isLoading = false;
