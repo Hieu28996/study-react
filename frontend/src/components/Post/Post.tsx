@@ -1,12 +1,9 @@
-import classNames from "classnames";
-
 interface PostProps {
 	interactive?: number;
 	title?: string;
 	content?: string;
 	author?: string;
 	dateCreated?: string;
-	isLoading: boolean;
 }
 
 const Post = (props: PostProps) => {
@@ -16,7 +13,6 @@ const Post = (props: PostProps) => {
 		content,
 		author,
 		dateCreated = "Mon Sep 05 2022 15:34:35 GMT+0700 (Giờ Đông Dương)",
-		isLoading = false,
 	} = props;
 
 	return (
@@ -29,11 +25,7 @@ const Post = (props: PostProps) => {
 					</a>
 					<span className="post_date">{dateCreated}</span>
 				</div>
-				<strong
-					className={classNames("post_title", isLoading && "skeleton_loading")}
-				>
-					{title}
-				</strong>
+				<strong className="post_title skeleton_loading">{title}</strong>
 				<p className="post_description">{content}</p>
 				<div className="post_controls"></div>
 			</div>

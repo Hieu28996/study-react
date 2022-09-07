@@ -28,7 +28,7 @@ const Home = () => {
 				<div className="left_group">
 					<div className="create_post"></div>
 					<div className="post_wrap">
-						{Posts?.posts?.posts.map((item: any, index: any) => {
+						{Posts.posts?.posts.map((item: any, index: any) => {
 							return (
 								<Fragment key={index}>
 									<Post
@@ -36,7 +36,6 @@ const Home = () => {
 										content={item.content}
 										interactive={item.interactive}
 										title={item.title}
-										isLoading={Posts.isLoading}
 									/>
 								</Fragment>
 							);
