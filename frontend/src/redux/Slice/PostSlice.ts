@@ -12,10 +12,13 @@ const PostSlice = createSlice({
   reducers: {
     postStart: state => {
       state.postsState.isLoading = true;
+      state.postsState.isError = false;
     },
     postSuccess: (state, action) => {
       state.postsState.posts = action.payload;
       state.postsState.isLoading = false;
+      state.postsState.isError = false;
+
     },
     postFail: state => {
       state.postsState.isLoading = false;

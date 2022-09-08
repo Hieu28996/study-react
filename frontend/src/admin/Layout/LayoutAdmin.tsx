@@ -10,7 +10,7 @@ export interface LayoutAdminProp {
 const LayoutAdmin = (props: LayoutAdminProp) => {
 	const { children } = props;
 	const currentUser = useSelector(
-		(state: UserState) => state.login.loginState.currentUser
+		(state: UserState) => state.login.currentUser
 	);
 
 	return (

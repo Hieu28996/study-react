@@ -15,7 +15,7 @@ export const refreshToken = async () => {
 	}
 };
 
-const useRefreshToken = (
+export const useRefreshToken = (
 	user: any,
 	dispatch: AppDispatch,
 	stateSuccess: (refreshUser: { accessToken: string }) => AnyAction
@@ -46,5 +46,3 @@ const useRefreshToken = (
 	);
 	return axiosJWT;
 };
-
-export default useRefreshToken;

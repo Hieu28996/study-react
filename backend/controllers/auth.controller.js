@@ -136,3 +136,8 @@ exports.requestRefreshToken = async (req, res) => {
     });
   })
 }
+
+exports.signout = async (req, res) => {
+  res.clearCookie("refreshToken");
+  res.status(200).json("Logged out successfully!");
+}

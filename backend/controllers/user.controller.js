@@ -6,7 +6,6 @@ const User = db.user;
 exports.allAccess = async (req, res) => {
   User.find({}, (err, users) => {
     if (err) {
-      console.log(err);
       res.status(500).send('An error occurred', err);
       return;
     }

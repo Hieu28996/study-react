@@ -13,15 +13,13 @@ export interface LoginUser {
 
 export interface UserState {
 	login: {
-		loginState: {
-			currentUser: {
-				avatar: any;
-				username: string;
-				password: string;
-			};
-			isFetching: boolean;
-			error: boolean;
+		currentUser: {
+			avatar: any;
+			username: string;
+			password: string;
 		};
+		isFetching: boolean;
+		error: boolean;
 	};
 }
 
@@ -31,10 +29,8 @@ const Login = () => {
 	const [errorMess, setErrorMess] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const error = useSelector((state: UserState) => state.login.loginState.error);
-	const loading = useSelector(
-		(state: UserState) => state.login.loginState.isFetching
-	);
+	const error = useSelector((state: UserState) => state.login.error);
+	const loading = useSelector((state: UserState) => state.login.isFetching);
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();

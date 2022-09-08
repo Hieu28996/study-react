@@ -11,10 +11,6 @@ const User = mongoose.model(
       data: Buffer,
       contentType: String
     },
-    post: {
-      type: mongoose.Types.ObjectId,
-      ref: "Post",
-    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,

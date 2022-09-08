@@ -4,13 +4,13 @@ const Posts = db.posts;
 const User = db.user;
 
 exports.allPost = (req, res) => {
-  Posts.find({}, (err, posts) => {
+  Posts.find({}, (err, post) => {
     if (err) {
       res.status(500).send('An error occurred', err);
       return;
     }
     else {
-      res.status(200).send({ posts: posts });
+      res.status(200).send({ posts: post });
       return;
     }
   })
@@ -29,23 +29,23 @@ exports.createPost = (req, res) => {
       return;
     }
     if(req.body.author) {
-      User.find(
-        { username: { $in: req.body.author } },
+      User.findOne(
+        { username: req.body.author },
         (err, user) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
-          post.author = user.map(user => user._id);
+          post.author = user._id;
           post.save(err => {
             if (err) {
               res.status(500).send({ message: err });
               return;
             }
-            res.send({ message: "Create post successfully!" });
+            res.send({ post: post });
           });
         }
-      )
+      );
     }
   })
 };

@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
 const HomeAdmin = () => {
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 	const currentUser = useSelector(
-		(state: UserState) => state.login.loginState.currentUser
+		(state: UserState) => state.login.currentUser
 	);
 
 	useEffect(() => {
-		if(!currentUser) {
-			navigate(`/admin/login`)
+		if (!currentUser) {
+			navigate(`/admin/login`);
 		}
-	}, [currentUser, navigate])
+	}, [currentUser, navigate]);
 
 	return (
 		<LayoutAdmin>

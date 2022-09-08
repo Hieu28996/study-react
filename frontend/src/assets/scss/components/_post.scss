@@ -1,5 +1,6 @@
 .post {
   display: flex;
+  position: relative;
   overflow: hidden;
   border-radius: 4px;
   border: 1px solid rgb(204, 204, 204);
@@ -12,6 +13,16 @@
 
   &+.post {
     margin-top: 15px;
+  }
+
+  &_link {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
   }
 
   &_interactive {
@@ -39,8 +50,12 @@
     color: $black;
   }
 
-  &_author:hover {
-    text-decoration: underline;
+  &_author {
+    z-index: 2;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &_date {
@@ -54,6 +69,11 @@
 
     &+.post_title {
       margin-top: 30px;
+    }
+
+    &:empty {
+      width: 60%;
+      height: 20px;
     }
   }
 
@@ -75,6 +95,11 @@
     font-weight: 400;
     line-height: 16px;
     color: #1c1c1c;
+
+    &:empty {
+      width: 100%;
+      height: 96px;
+    }
   }
 
   &_wrap {

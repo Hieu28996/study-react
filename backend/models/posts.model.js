@@ -1,18 +1,14 @@
 const mongoose = require("mongoose");
 
 const Posts = mongoose.model(
-  "Post",
+  "Posts",
   new mongoose.Schema({
-    title: {
-      type: String,
-    },
-    content: {
-      type: String,
-    },
+    title: String,
+    content: String,
     interactive: Number,
     author: {
-      type: mongoose.Types.ObjectId,
-      ref: "User"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   }),
 )
