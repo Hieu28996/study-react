@@ -8,7 +8,7 @@ export const loginUser = async(user: LoginUser, dispatch: AppDispatch, navigate:
   try {
     const res = await axios.post("/api/auth/signin", user);
     dispatch(loginSuccess(res.data));
-    navigate("/home");
+    navigate("/main/home");
   } catch (error) {
     dispatch(loginFail());
   }
@@ -17,7 +17,7 @@ export const loginUser = async(user: LoginUser, dispatch: AppDispatch, navigate:
 export const logoutUser = async(dispatch: AppDispatch, navigate: (param: string) => void) => {
   dispatch(logoutStart());
   try {
-    const res = await axios.post("/api/auth/signout");
+    await axios.post("/api/auth/signout");
     dispatch(logoutSuccess());
     navigate("/");
   } catch (error) {

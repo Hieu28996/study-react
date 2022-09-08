@@ -1,11 +1,9 @@
 import axios from "axios";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LayoutPortal from "layouts/LayoutPortal";
 import Login from "pages/Login";
 import Register from "pages/Register";
 import Home from "pages/Home";
-// import LoginAdmin from "admin/Login";
-// import HomeAdmin from "admin/Home";
-// import Users from "admin/Users/Users";
 
 const App = () => {
 	axios.defaults.baseURL = process.env.REACT_APP_SERVER_REQUEST;
@@ -15,12 +13,10 @@ const App = () => {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Login />} />
-					<Route path="/home" element={<Home />} />
 					<Route path="/register" element={<Register />} />
-					{/* <Route path="/admin/login" element={<LoginAdmin />} />
-					<Route path="/admin" element={<HomeAdmin />}>
-						<Route path="users" element={<Users />} />
-					</Route> */}
+					<Route path="/main" element={<LayoutPortal />}>
+						<Route path="home" element={<Home />} />
+					</Route>
 				</Routes>
 			</Router>
 		</div>

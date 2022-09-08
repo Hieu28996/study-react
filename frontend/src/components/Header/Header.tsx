@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
@@ -11,7 +11,6 @@ import { ReactComponent as IconClose } from "assets/images/icon/ic_close.svg";
 import { ReactComponent as IconPopular } from "assets/images/icon/ic_popular.svg";
 import { ReactComponent as IconPlus } from "assets/images/icon/ic_plus.svg";
 import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
-// import { ReactComponent as IconSearch } from "assets/images/icon/ic_search.svg";
 import { logoutUser } from "redux/APIs/LoginApiRequest";
 
 const Header = (props: any) => {
@@ -146,7 +145,7 @@ const Header = (props: any) => {
 									)}
 									<span
 										className={classNames(
-											"account_status",
+											"status",
 											user.status && `is_${user.status}`
 										)}
 									></span>

@@ -7,9 +7,66 @@
   display: flex;
   width: 974px;
   margin: 0 auto;
-  padding-top: 60px;
+  padding: 50px 0;
+}
+
+.box {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  background-color: $white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  &+.post_wrap {
+    margin-top: 30px;
+  }
 }
 
 .left_group {
+  padding-top: 50px;
   flex-basis: 640px;
+
+  .create_post {
+    &_inp {
+      margin-left: 8px;
+      flex: 1 0;
+
+      &+.btn_create_post {
+        margin-left: 10px;
+      }
+    }
+
+    &_pin {
+      position: relative;
+      height: 100%;
+      background-color: #d7dfe2;
+      border-radius: 50%;
+      font-size: 0;
+
+      .status {
+        right: 0;
+        bottom: 0;
+      }
+    }
+  }
+}
+
+.btn_create_post {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  transition: background-color .2s;
+
+  &:hover {
+    background-color: rgba($color: #878A8C, $alpha: .2);
+  }
+
+  &+.btn_create_post {
+    margin-left: 3px;
+  }
 }
