@@ -1,11 +1,13 @@
-import { useEffect, Fragment } from "react";
+import { useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
 import { GetAllPosts } from "redux/APIs/PostApiRequest";
 import { loginSuccess } from "redux/Slice/LoginSlice";
 import { useRefreshToken } from "hooks";
 import Post from "components/Post";
 import Input from "components/Input";
+import Select from "components/Select";
 import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
 import { ReactComponent as IconImage } from "assets/images/icon/ic_image.svg";
 import { ReactComponent as IconLink } from "assets/images/icon/ic_link.svg";
@@ -13,14 +15,19 @@ import { ReactComponent as IconLink } from "assets/images/icon/ic_link.svg";
 const Home = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const [activeFilter, setActiveFilter] = useState("best");
+	const [selection, setSelection] = useState("");
 	const User = useSelector((state: any) => state.login.currentUser);
 	const Posts: Array<any> =
 		useSelector((state: any) => state.posts.postsState.posts.posts) || [];
 	const refreshToken = useRefreshToken(User, dispatch, loginSuccess);
+	const FilterPost = ["best", "hot", "new", "top"];
 
 	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
 		e.preventDefault();
 	};
+
+	const handleSelect = (option: string) => setSelection(option);
 
 	useEffect(() => {
 		if (!User) {
@@ -57,23 +64,31 @@ const Home = () => {
 					</button>
 				</div>
 				<div className="box">
-					<ul className="filter_post">
-						<li>
-							<button
-								type="button"
-								className="btn_filter_post is_active"
-							></button>
-						</li>
-						<li>
-							<button type="button" className="btn_filter_post"></button>
-						</li>
-						<li>
-							<button type="button" className="btn_filter_post"></button>
-						</li>
-						<li>
-							<button type="button" className="btn_filter_post"></button>
-						</li>
-					</ul>
+					{FilterPost && (
+						<ul className="filter_post">
+							{FilterPost.map((item, index) => {
+								return (
+									<li key={index}>
+										<button
+											type="button"
+											className={classNames(
+												"btn_filter_post",
+												`ic_${item}`,
+												activeFilter === item ? "is_active" : ""
+											)}
+										>
+											{item}
+										</button>
+									</li>
+								);
+							})}
+						</ul>
+					)}
+					<Select
+						activeOption={0}
+						onClickSelect={handleSelect}
+						options={["Card", "Classic", "Compact"]}
+					/>
 				</div>
 				{Posts.length > 0 ? (
 					<div className="post_wrap lazy_load_list">
@@ -85,6 +100,7 @@ const Home = () => {
 										content={item.content}
 										interactive={item.interactive}
 										title={item.title}
+										className={selection.toLowerCase()}
 									/>
 								</Fragment>
 							);

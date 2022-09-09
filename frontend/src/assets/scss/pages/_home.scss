@@ -21,6 +21,10 @@
   &+.post_wrap {
     margin-top: 30px;
   }
+
+  &+.box {
+    margin-top: 15px;
+  }
 }
 
 .left_group {
@@ -68,5 +72,40 @@
 
   &+.btn_create_post {
     margin-left: 3px;
+  }
+}
+
+.filter_post {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .btn_filter_post {
+    display: inline-flex;
+    height: 32px;
+    padding: 5px 10px;
+    background-color: $white;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 18px;
+    color: #878A8C;
+    text-transform: capitalize;
+    transition: color .2s, background-color .2s;
+    border-radius: 16px;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: rgba($color: #1c1c1c, $alpha: .08);
+    }
+
+    &.is_active {
+      background-color: #f6f7f8;
+      color: #0079d3;
+    }
+  }
+
+  &+.select {
+    margin-left: auto;
   }
 }

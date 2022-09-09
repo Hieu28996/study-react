@@ -1,8 +1,11 @@
-interface PostProps {
+import classNames from "classnames";
+
+export interface PostProps {
 	interactive?: number;
 	title?: string;
 	content?: string;
 	author?: string;
+	className?: string;
 	dateCreated?: string;
 }
 
@@ -12,11 +15,12 @@ const Post = (props: PostProps) => {
 		title,
 		content,
 		author,
+		className,
 		dateCreated = "Mon Sep 05 2022 15:34:35 GMT+0700 (Giờ Đông Dương)",
 	} = props;
 
 	return (
-		<div className="post">
+		<div className={classNames("post", `post_${className}`)}>
 			<a href="#none" className="post_link">
 				<span className="blind">post link</span>
 			</a>

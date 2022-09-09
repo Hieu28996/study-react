@@ -1,15 +1,11 @@
-import { ComponentStory } from "@storybook/react";
-import { ReactElement } from "react";
-import Post from "./Post";
+import Post, { PostProps } from "components/Post";
 
 export default {
 	title: "Components/Post",
 	component: Post,
 };
 
-const Template: ComponentStory<() => ReactElement | null> = (args: any) => (
-	<Post {...args} />
-);
+const Template: any = (args: PostProps) => <Post {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
