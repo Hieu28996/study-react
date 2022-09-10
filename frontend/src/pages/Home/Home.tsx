@@ -3,14 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { GetAllPosts } from "redux/APIs/PostApiRequest";
-import { loginSuccess } from "redux/Slice/LoginSlice";
-import { useRefreshToken } from "hooks";
+// import { loginSuccess } from "redux/Slice/LoginSlice";
+// import { useRefreshToken } from "hooks";
 import Post from "components/Post";
 import Input from "components/Input";
 import Select from "components/Select";
 import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
 import { ReactComponent as IconImage } from "assets/images/icon/ic_image.svg";
 import { ReactComponent as IconLink } from "assets/images/icon/ic_link.svg";
+import CommunitiesBox, { Communities } from "components/CommunitiesBox";
+
+export interface PostProps {
+	[x: string]: any;
+	title?: string;
+	content?: string;
+	interactive?: number;
+}
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -18,13 +26,14 @@ const Home = () => {
 	const [activeFilter, setActiveFilter] = useState("best");
 	const [selection, setSelection] = useState("");
 	const User = useSelector((state: any) => state.login.currentUser);
-	const Posts: Array<any> =
-		useSelector((state: any) => state.posts.postsState.posts.posts) || [];
-	const refreshToken = useRefreshToken(User, dispatch, loginSuccess);
+	const Posts: Array<PostProps> =
+		useSelector((state: PostProps) => state.post.posts) || [];
+	// const refreshToken = useRefreshToken(User, dispatch, loginSuccess);
 	const FilterPost = ["best", "hot", "new", "top"];
 
 	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
 		e.preventDefault();
+		navigate("/main/createpost");
 	};
 
 	const handleSelect = (option: string) => setSelection(option);
@@ -34,7 +43,7 @@ const Home = () => {
 			navigate("/");
 		}
 		if (User?.accessToken) {
-			GetAllPosts(dispatch, refreshToken);
+			GetAllPosts(dispatch);
 		}
 	}, [dispatch]);
 
@@ -100,6 +109,7 @@ const Home = () => {
 										content={item.content}
 										interactive={item.interactive}
 										title={item.title}
+										dateCreated={item.createDate}
 										className={selection.toLowerCase()}
 									/>
 								</Fragment>
@@ -108,7 +118,13 @@ const Home = () => {
 					</div>
 				) : null}
 			</div>
-			<div className="right_group"></div>
+			<div className="right_group">
+				<CommunitiesBox
+					background="https://www.redditstatic.com/desktop2x/img/leaderboard/banner-background.png"
+					communities={Communities}
+					type="Sport"
+				/>
+			</div>
 		</>
 	);
 };

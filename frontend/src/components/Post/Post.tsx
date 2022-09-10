@@ -1,23 +1,17 @@
 import classNames from "classnames";
+import { User } from "pages/Login/Login";
 
 export interface PostProps {
 	interactive?: number;
 	title?: string;
 	content?: string;
-	author?: string;
+	author?: any;
 	className?: string;
 	dateCreated?: string;
 }
 
 const Post = (props: PostProps) => {
-	const {
-		interactive,
-		title,
-		content,
-		author,
-		className,
-		dateCreated = "Mon Sep 05 2022 15:34:35 GMT+0700 (Giờ Đông Dương)",
-	} = props;
+	const { interactive, title, content, author, className, dateCreated } = props;
 
 	return (
 		<div className={classNames("post", `post_${className}`)}>
@@ -36,7 +30,30 @@ const Post = (props: PostProps) => {
 				</div>
 				<strong className="post_title skeleton_loading">{title}</strong>
 				<p className="post_description skeleton_loading">{content}</p>
-				<div className="post_controls"></div>
+				<div className="post_controls">
+					<ul>
+						<li>
+							<button type="button" className="post_controls_btn">
+								Comments
+							</button>
+						</li>
+						<li>
+							<button type="button" className="post_controls_btn">
+								Award
+							</button>
+						</li>
+						<li>
+							<button type="button" className="post_controls_btn">
+								Share
+							</button>
+						</li>
+						<li>
+							<button type="button" className="post_controls_btn">
+								Save
+							</button>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	);

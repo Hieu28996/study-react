@@ -9,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: ReactNode;
 	className?: string;
 	color?: string;
+	isAround?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
@@ -17,6 +18,7 @@ const Button = (props: ButtonProps) => {
 		color,
 		isFullWidth,
 		children,
+		isAround,
 		type = "button",
 		className,
 		...rest
@@ -46,6 +48,7 @@ const Button = (props: ButtonProps) => {
 				"btn",
 				isFullWidth && "btn_full",
 				color && `btn_${color}`,
+				isAround && "btn_around",
 				className
 			)}
 			{...rest}

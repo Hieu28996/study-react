@@ -10,6 +10,7 @@ const Posts = mongoose.model(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    createDate: String,
   }),
 )
 

@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUser } from "redux/APIs/AllUserApiRequest";
+import { getAllUser } from "redux/APIs/UserApiRequest";
 
 const Users = () => {
 	const dispatch = useDispatch();
-	const users = useSelector(
-		(state: any) => state.allUser.allUserState.allUser?.users
-	);
+	const users = useSelector((state: any) => state.allUser?.users);
 
 	useEffect(() => {
 		getAllUser(dispatch);

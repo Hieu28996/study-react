@@ -1,5 +1,5 @@
 import axios from "axios";
-import { allUserFail, allUserStart, allUserSuccess } from "redux/Slice/AllUserSlice";
+import { allUserFail, allUserStart, allUserSuccess } from "redux/Slice/UserSlice";
 import { AppDispatch } from "redux/store";
 
 export const getAllUser = async (dispatch: AppDispatch) => {

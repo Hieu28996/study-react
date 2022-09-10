@@ -5,8 +5,15 @@ import Button from "components/Button";
 import Input from "components/Input";
 import Loading from "components/Loading";
 import { loginUser } from "redux/APIs/LoginApiRequest";
+import { loginSuccess } from "redux/Slice/LoginSlice";
 
 export interface LoginUser {
+	username?: string;
+	password?: string;
+}
+
+export interface User {
+	[x: string]: any;
 	username?: string;
 	password?: string;
 }
@@ -14,7 +21,7 @@ export interface LoginUser {
 export interface UserState {
 	login: {
 		currentUser: {
-			avatar: any;
+			avatar: string;
 			username: string;
 			password: string;
 		};
@@ -31,6 +38,9 @@ const Login = () => {
 	const navigate = useNavigate();
 	const error = useSelector((state: UserState) => state.login.error);
 	const loading = useSelector((state: UserState) => state.login.isFetching);
+	const currentUser = useSelector(
+		(state: UserState) => state.login.currentUser
+	);
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
@@ -53,6 +63,13 @@ const Login = () => {
 			error ? setErrorMess("Incorrect account or password") : setErrorMess("");
 		}
 	};
+
+	useEffect(() => {
+		if (currentUser) {
+			dispatch(loginSuccess);
+			navigate("/main/home");
+		}
+	}, [dispatch]);
 
 	useEffect(() => {
 		error && setErrorMess("Incorrect account or password");

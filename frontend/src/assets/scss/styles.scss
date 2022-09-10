@@ -14,12 +14,13 @@
 @import "components/post";
 @import "components/skeleton";
 @import "components/select";
-
+@import "components/community";
 
 // Pages
 @import "pages/login";
 @import "pages/register";
 @import "pages/home";
+@import "pages/create_post";
 
 // Admin
 @import "pages/admin";

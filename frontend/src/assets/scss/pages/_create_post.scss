@@ -1,0 +1,112 @@
+.cont_header {
+	display: flex;
+	align-items: center;
+
+	& + .content {
+		position: relative;
+		margin-top: 50px;
+
+		&:before {
+			display: block;
+			position: absolute;
+			top: -25px;
+			width: 100%;
+			height: 1px;
+			background-color: #edeff1;
+			content: "";
+		}
+	}
+
+	.title {
+		font-size: 18px;
+		font-weight: 500;
+		line-height: 22px;
+		color: #1c1c1c;
+	}
+}
+
+.btn_draft {
+	display: inline-flex;
+	margin-left: auto;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	line-height: 24px;
+	color: $blue;
+	text-transform: uppercase;
+}
+
+.content {
+	.select {
+		width: 300px;
+
+		& + .create_post_wrap {
+			margin-top: 20px;
+		}
+	}
+}
+
+.create_post {
+	&_wrap {
+		padding: 15px;
+		background-color: $white;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	&_list {
+		display: flex;
+		justify-content: center;
+		margin: -15px -15px 0;
+
+		& + form {
+			margin-top: 30px;
+
+			& + .btn_wrap {
+				display: flex;
+				justify-content: flex-end;
+				margin-top: 30px;
+			}
+		}
+
+		li {
+			position: relative;
+			flex-basis: 25%;
+			font-size: 0;
+			border: solid #edeff1;
+			border-width: 1px 1px 1px 0;
+			box-sizing: border-box;
+
+			&:first-child {
+				border-width: 1px;
+			}
+
+			&.is_active {
+				.tab_btn {
+					color: $blue;
+				}
+
+				&:after {
+					position: absolute;
+					bottom: -1px;
+					left: 0;
+					width: 100%;
+					height: 3px;
+					background-color: $blue;
+					content: "";
+				}
+			}
+		}
+
+		.tab_btn {
+			display: inline-block;
+			width: 100%;
+			padding: 10px;
+			font-size: 14px;
+			font-weight: 700;
+			line-height: 20px;
+			color: #878a8c;
+			text-align: center;
+		}
+	}
+}

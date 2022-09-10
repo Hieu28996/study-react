@@ -3,34 +3,49 @@ import { createSlice } from "@reduxjs/toolkit";
 const PostSlice = createSlice({
   name: "post",
   initialState: {
-    postsState: {
-      posts: null,
-      isLoading: false,
-      isError: false,
-    }
+    posts: null,
+    post: null,
+    isLoading: false,
+    isError: false,
   },
   reducers: {
     postStart: state => {
-      state.postsState.isLoading = true;
-      state.postsState.isError = false;
+      state.isLoading = true;
+      state.isError = false;
     },
     postSuccess: (state, action) => {
-      state.postsState.posts = action.payload;
-      state.postsState.isLoading = false;
-      state.postsState.isError = false;
+      state.posts = action.payload.posts;
+      state.isLoading = false;
+      state.isError = false;
 
     },
     postFail: state => {
-      state.postsState.isLoading = false;
-      state.postsState.isError = true;
-    }
+      state.isLoading = false;
+      state.isError = true;
+    },
+    createStart: state => {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    createSuccess: (state, action) => {
+      state.post = action.payload;
+      state.isLoading = false;
+      state.isError = false;
+    },
+    createFail: state => {
+      state.isLoading = false;
+      state.isError = true;
+    },
   }
 });
 
 export const {
   postStart,
   postSuccess,
-  postFail
+  postFail,
+  createStart,
+  createSuccess,
+  createFail
 } = PostSlice.actions;
 
 export default PostSlice.reducer;

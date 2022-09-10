@@ -20,7 +20,8 @@ exports.createPost = (req, res) => {
   const post = new Posts({
     title: req.body.title,
     content: req.body.content,
-    interactive: req.body.interactive
+    interactive: req.body.interactive,
+    createDate: new Date(),
   })
 
   post.save((err, post) => {
