@@ -6,9 +6,13 @@ const Posts = mongoose.model(
     title: String,
     content: String,
     interactive: Number,
-    author: {
+    users: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+    communities: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Communities",
     },
     createDate: String,
   }),

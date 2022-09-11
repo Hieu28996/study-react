@@ -105,7 +105,7 @@ const Home = () => {
 							return (
 								<Fragment key={index}>
 									<Post
-										author={item.author.username}
+										author={item.users.username}
 										content={item.content}
 										interactive={item.interactive}
 										title={item.title}

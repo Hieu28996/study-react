@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 const authRoute = require("./routes/auth.routes");
 const userRoute = require("./routes/user.routes");
 const postRoute = require("./routes/post.routes");
+const communityRoute = require("./routes/communities.routes");
 const cookieParser = require("cookie-parser");
 
 dotenv.config();
@@ -41,6 +42,7 @@ app.listen(process.env.PORT, () => {
 
 const db = require("./models");
 const Role = db.role;
+const CommunityType = db.communityType;
 
 mongoose
   .connect((process.env.MONGODB_URL), {
@@ -90,9 +92,49 @@ mongoose
         });
       }
     });
+    CommunityType.estimatedDocumentCount((err, type) => {
+      if (!err && type === 0) {
+        new CommunityType({
+          type: "sport",
+        }).save((err) => {
+          if (err) {
+            console.log("error", err);
+          }
+          console.log("added 'sport' to CommunityType collection");
+        });
+
+        new CommunityType({
+          type: "develop",
+        }).save((err) => {
+          if (err) {
+            console.log("error", err);
+          }
+          console.log("added 'develop' to CommunityType collection");
+        });
+
+        new CommunityType({
+          type: "music",
+        }).save((err) => {
+          if (err) {
+            console.log("error", err);
+          }
+          console.log("added 'music' to CommunityType collection");
+        });
+
+        new CommunityType({
+          type: "film",
+        }).save((err) => {
+          if (err) {
+            console.log("error", err);
+          }
+          console.log("added 'film' to CommunityType collection");
+        });
+      }
+    })
   }
   initial;
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/community", communityRoute);

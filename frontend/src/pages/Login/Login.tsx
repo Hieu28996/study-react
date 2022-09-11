@@ -24,6 +24,7 @@ export interface UserState {
 			avatar: string;
 			username: string;
 			password: string;
+			communities: Array<{ name: string }>;
 		};
 		isFetching: boolean;
 		error: boolean;

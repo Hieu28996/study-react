@@ -5,6 +5,7 @@ import Login from "pages/Login";
 import Register from "pages/Register";
 import Home from "pages/Home";
 import CreatePost from "pages/CreatePost";
+import PostDetail from "pages/PostDetail";
 
 const App = () => {
 	axios.defaults.baseURL = process.env.REACT_APP_SERVER_REQUEST;
@@ -18,6 +19,7 @@ const App = () => {
 					<Route path="/main" element={<LayoutPortal />}>
 						<Route path="home" element={<Home />} />
 						<Route path="createpost" element={<CreatePost />} />
+						<Route path="postdetail" element={<PostDetail />} />
 					</Route>
 				</Routes>
 			</Router>

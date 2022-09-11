@@ -2,11 +2,15 @@ const db = require("../models");
 
 const Posts = db.posts;
 const User = db.user;
+const Communities = db.communities;
 
-exports.allPost = (req, res) => {
-  Posts.find({}, (err, post) => {
+exports.allPost = async (req, res) => {
+  await Posts.find()
+  .populate("users")
+  .populate("communities")
+  .exec((err, post) => {
     if (err) {
-      res.status(500).send('An error occurred', err);
+      res.status(500).send({ message: err });
       return;
     }
     else {
@@ -31,22 +35,40 @@ exports.createPost = (req, res) => {
     }
     if(req.body.author) {
       User.findOne(
-        { username: req.body.author },
-        (err, user) => {
+        { username: req.body.author }
+      )
+      .exec((err, user) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        post.users = user._id;
+        post.save(err => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
-          post.author = user._id;
-          post.save(err => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            res.send({ post: post });
-          });
-        }
-      );
+          if(req.body.community) {
+            Communities.findOne(
+              { name: req.body.community},
+              (err, community) => {
+                if (err) {
+                  res.status(500).send({ message: err });
+                  return;
+                }
+                post.communities = community._id
+                post.save(err => {
+                  if (err) {
+                    res.status(500).send({ message: err });
+                    return;
+                  }
+                  res.send({ post: post });
+                })
+              }
+            )
+          }
+        });
+      })
     }
   })
 };

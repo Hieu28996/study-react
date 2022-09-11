@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "components/Select";
@@ -12,6 +12,7 @@ export interface PostProps {
 	content?: string;
 	author?: string;
 	interactive?: number;
+	community?: string;
 }
 
 const CreatePost = () => {
@@ -20,8 +21,9 @@ const CreatePost = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const currentUser = useSelector(
-		(state: UserState) => state.login.currentUser.username
+		(state: UserState) => state.login.currentUser
 	);
+	const [community, setCommunity] = useState(currentUser.communities[0].name);
 
 	const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitlePost(e.target.value);
@@ -31,6 +33,8 @@ const CreatePost = () => {
 		setContentPost(e.target.value);
 	};
 
+	const handleSelect = (item: string) => setCommunity(item);
+
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
 
@@ -38,7 +42,8 @@ const CreatePost = () => {
 			title: titlePost,
 			content: contentPost,
 			interactive: 0,
-			author: currentUser,
+			author: currentUser.username,
+			community: community,
 		};
 
 		CreatePostFunc(post, dispatch, navigate);
@@ -54,13 +59,13 @@ const CreatePost = () => {
 					</button>
 				</div>
 				<div className="content">
-					<Select
-						activeOption={0}
-						onClickSelect={() => {
-							return;
-						}}
-						options={["Card", "Classic", "Compact"]}
-					/>
+					{community && (
+						<Select
+							activeOption={0}
+							onClickSelect={handleSelect}
+							options={currentUser.communities.map((item) => item.name)}
+						/>
+					)}
 					<div className="create_post_wrap">
 						<ul className="create_post_list">
 							<li className="is_active">
@@ -109,7 +114,7 @@ const CreatePost = () => {
 								color="secondary"
 								isAround
 								onClick={handleSubmit}
-								disabled={contentPost ? false : true}
+								disabled={contentPost && titlePost && community ? false : true}
 							>
 								Post
 							</Button>

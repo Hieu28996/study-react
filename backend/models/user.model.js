@@ -17,6 +17,12 @@ const User = mongoose.model(
         ref: "Role",
       },
     ],
+    communities: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Communities",
+      }
+    ],
   })
 );
 
