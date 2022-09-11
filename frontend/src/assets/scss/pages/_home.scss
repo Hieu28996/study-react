@@ -20,6 +20,26 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 
+	&_profile {
+		position: relative;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+		box-sizing: border-box;
+
+		&:before {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 94px;
+			background-color: #33a8ff;
+			z-index: 0;
+			content: "";
+		}
+	}
+
 	&_community {
 		overflow: hidden;
 		width: 310px;
@@ -66,6 +86,10 @@
 			}
 		}
 	}
+}
+
+.right_group {
+	width: 310px;
 }
 
 .btn_create_post {

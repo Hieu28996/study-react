@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { useOnClickOutside } from "hooks";
@@ -166,9 +166,9 @@ const Header = (props: any) => {
 						<div className="account_control">
 							<ul>
 								<li>
-									<a href="#none" className="account_btn">
+									<Link to="/main/profile" className="account_btn">
 										Profile
-									</a>
+									</Link>
 								</li>
 								<li>
 									<a href="#none" className="account_btn">

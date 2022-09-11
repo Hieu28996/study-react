@@ -1,11 +1,10 @@
 import classNames from "classnames";
-import { User } from "pages/Login/Login";
 
 export interface PostProps {
 	interactive?: number;
 	title?: string;
 	content?: string;
-	author?: any;
+	author?: string;
 	className?: string;
 	dateCreated?: string;
 	community?: string;

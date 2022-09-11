@@ -1,0 +1,54 @@
+.box_profile_info {
+	align-items: flex-start;
+	flex-direction: column;
+
+	.box {
+		&_tit {
+			font-size: 12px;
+			line-height: 14px;
+		}
+
+		&_content {
+			width: 100%;
+			margin-top: 20px;
+		}
+	}
+
+	.community {
+		&_info {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+
+			li {
+				display: flex;
+				align-items: center;
+			}
+
+			.btn {
+				height: 30px;
+				background-color: $white;
+				color: $blue;
+
+				&:hover {
+					.community_leave {
+						display: block;
+					}
+
+					.community_join {
+						display: none;
+					}
+				}
+			}
+		}
+
+		&_name {
+			font-size: 12px;
+			line-height: 14px;
+		}
+
+		&_leave {
+			display: none;
+		}
+	}
+}

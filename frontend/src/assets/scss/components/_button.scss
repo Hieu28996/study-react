@@ -1,5 +1,5 @@
 .btn {
-	display: inline-block;
+	display: inline-flex;
 	position: relative;
 	z-index: 1;
 	min-width: 120px;
@@ -11,7 +11,8 @@
 	font-size: 13px;
 	color: #262626;
 	line-height: 34px;
-	text-align: center;
+	align-items: center;
+	justify-content: center;
 	border-radius: 4px;
 	// transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 
@@ -25,6 +26,12 @@
 		border-color: $orange;
 		background-color: $orange;
 		color: $white;
+	}
+
+	&_gray {
+		border-color: #edeff1;
+		background-color: #edeff1;
+		color: $black;
 	}
 
 	&_secondary {
@@ -50,5 +57,9 @@
 		pointer-events: none;
 		background-color: rgba(0, 0, 0, 0.3);
 		border-color: rgba(0, 0, 0, 0.3);
+	}
+
+	&_profile_post {
+		background: linear-gradient(90deg, #ec0623, #ff8717);
 	}
 }

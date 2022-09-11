@@ -1,0 +1,51 @@
+.profile {
+	&_header {
+		margin-top: 30px;
+		z-index: 1;
+
+		& + .profile_name {
+			display: block;
+			margin-top: -10px;
+			font-size: 12px;
+			line-height: 16px;
+			font-weight: 500;
+			color: #222;
+		}
+	}
+
+	&_avatar {
+		display: flex;
+		position: relative;
+		background-color: #d7dfe2;
+		flex-direction: column;
+		gap: 3px;
+		border-radius: 6px;
+		box-sizing: border-box;
+
+		&:before {
+			position: absolute;
+			top: -3px;
+			left: -3px;
+			width: calc(100% + 6px);
+			height: calc(100% + 6px);
+			z-index: -1;
+			background-color: $white;
+			border-radius: 6px;
+			box-sizing: border-box;
+			content: "";
+		}
+
+		label {
+			display: inline-flex;
+			cursor: pointer;
+		}
+
+		input {
+			width: 1px;
+			height: 1px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+}

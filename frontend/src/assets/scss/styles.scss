@@ -15,12 +15,14 @@
 @import "components/skeleton";
 @import "components/select";
 @import "components/community";
+@import "components/profile_box";
 
 // Pages
 @import "pages/login";
 @import "pages/register";
 @import "pages/home";
 @import "pages/create_post";
+@import "pages/profile";
 
 // Admin
 @import "pages/admin";

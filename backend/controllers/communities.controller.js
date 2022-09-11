@@ -40,12 +40,20 @@ exports.createCommunity = (req, res) => {
                     return;
                   }
                   community.users = [user._id];
-                  community.save(err => {
+                  community.save((err, community) => {
                     if (err) {
                       res.status(500).send({ message: err });
                       return;
                     }
-                    res.status(200).send({ message: "done" });
+                    user.communities = [...user.communities, community._id]
+                    user.save(err => {
+                      if (err) {
+                        res.status(500).send({ message: err });
+                        return;
+                      }
+
+                      res.status(200).send({ message: "done" });
+                    })
                   });
                 }
               );
