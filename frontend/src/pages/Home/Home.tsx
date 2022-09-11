@@ -110,6 +110,7 @@ const Home = () => {
 										interactive={item.interactive}
 										title={item.title}
 										dateCreated={item.createDate}
+										community={item.communities.name}
 										className={selection.toLowerCase()}
 									/>
 								</Fragment>

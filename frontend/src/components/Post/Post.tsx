@@ -8,10 +8,19 @@ export interface PostProps {
 	author?: any;
 	className?: string;
 	dateCreated?: string;
+	community?: string;
 }
 
 const Post = (props: PostProps) => {
-	const { interactive, title, content, author, className, dateCreated } = props;
+	const {
+		interactive,
+		title,
+		content,
+		author,
+		className,
+		dateCreated,
+		community,
+	} = props;
 
 	return (
 		<div className={classNames("post", `post_${className}`)}>
@@ -21,11 +30,12 @@ const Post = (props: PostProps) => {
 			<div className="post_interactive">{interactive}</div>
 			<div className="post_content">
 				<div className="post_header skeleton_loading">
-					{author && (
+					{community && (
 						<a href="#none" className="post_author">
-							{author}
+							r/{community}
 						</a>
 					)}
+					{author && <span className="post_date">by {author}</span>}
 					{dateCreated && <span className="post_date">{dateCreated}</span>}
 				</div>
 				<strong className="post_title skeleton_loading">{title}</strong>

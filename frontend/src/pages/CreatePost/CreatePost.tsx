@@ -23,7 +23,9 @@ const CreatePost = () => {
 	const currentUser = useSelector(
 		(state: UserState) => state.login.currentUser
 	);
-	const [community, setCommunity] = useState(currentUser.communities[0].name);
+	const [community, setCommunity] = useState(
+		currentUser === null ? "" : currentUser.communities[0].name
+	);
 
 	const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitlePost(e.target.value);
@@ -59,13 +61,13 @@ const CreatePost = () => {
 					</button>
 				</div>
 				<div className="content">
-					{community && (
+					{currentUser !== null ? (
 						<Select
 							activeOption={0}
 							onClickSelect={handleSelect}
 							options={currentUser.communities.map((item) => item.name)}
 						/>
-					)}
+					) : null}
 					<div className="create_post_wrap">
 						<ul className="create_post_list">
 							<li className="is_active">
