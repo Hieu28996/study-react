@@ -105,7 +105,7 @@ const Home = () => {
 					<div className="post_wrap lazy_load_list">
 						{loadingPost ? (
 							<>
-								<Post
+								{/* <Post
 									author={""}
 									content={""}
 									interactive={0}
@@ -149,7 +149,7 @@ const Home = () => {
 									dateCreated={""}
 									community={""}
 									className={selection.toLowerCase()}
-								/>
+								/> */}
 							</>
 						) : (
 							Posts?.map((item, index) => {

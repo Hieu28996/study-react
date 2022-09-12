@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "components/Select";
@@ -23,6 +23,7 @@ const CreatePost = () => {
 	const currentUser = useSelector(
 		(state: UserState) => state.login.currentUser
 	);
+
 	const [community, setCommunity] = useState(
 		currentUser === null ? "" : currentUser.communities[0].name
 	);
