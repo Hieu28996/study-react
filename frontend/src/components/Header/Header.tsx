@@ -143,6 +143,7 @@ const Header = (props: any) => {
 									) : (
 										<IconAvatar width={24} height={24} color="#fff" />
 									)}
+									<IconAvatar width={24} height={24} color="#fff" />
 									<span
 										className={classNames(
 											"status",

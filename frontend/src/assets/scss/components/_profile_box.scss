@@ -3,7 +3,7 @@
 		margin-top: 30px;
 		z-index: 1;
 
-		& + .profile_name {
+		&+.profile_name {
 			display: block;
 			margin-top: -10px;
 			font-size: 12px;
@@ -22,6 +22,15 @@
 		border-radius: 6px;
 		box-sizing: border-box;
 
+		img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
 		&:before {
 			position: absolute;
 			top: -3px;
@@ -37,6 +46,8 @@
 
 		label {
 			display: inline-flex;
+			width: 80px;
+			height: 80px;
 			cursor: pointer;
 		}
 

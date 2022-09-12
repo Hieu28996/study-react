@@ -31,6 +31,7 @@ const ProfileBox = (props: ProfileBoxProps) => {
 						id="myfile"
 						name="myfile"
 						onChange={onChangeAvatar}
+						multiple
 					/>
 				</div>
 			</div>

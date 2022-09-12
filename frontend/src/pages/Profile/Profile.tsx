@@ -7,6 +7,7 @@ import ProfileBox from "components/ProfileBox";
 import { UserState } from "pages/Login/Login";
 import { PostProps } from "pages/Home/Home";
 import Post from "components/Post";
+import axios from "axios";
 
 const Profile = () => {
 	const [activeFilter, setActiveFilter] = useState("new");
@@ -66,9 +67,27 @@ const Profile = () => {
 			</div>
 			<div className="right_group">
 				<ProfileBox
+					image={currentUser !== null ? currentUser.avatar : ""}
 					username={currentUser !== null ? currentUser.username : ""}
 					onClickCreatePost={() => {
 						navigate("/main/createpost");
+					}}
+					onChangeAvatar={async (e: React.ChangeEvent<HTMLInputElement>) => {
+						const file = e.target.files?.[0];
+						const formData = new FormData();
+						formData.append("username", currentUser.username);
+						formData.append("file", file as string | Blob);
+						try {
+							const res = await axios({
+								method: "post",
+								url: "/api/users/upload",
+								data: formData,
+								headers: { "Content-Type": "multipart/form-data" },
+							});
+							console.log(res);
+						} catch (error) {
+							console.log(error);
+						}
 					}}
 				/>
 				<div className="box box_profile_info">

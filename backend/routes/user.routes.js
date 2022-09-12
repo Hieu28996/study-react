@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const { authJwt, verifyEditUser } = require("../middlewares");
 const controller = require("../controllers/user.controller");
+const multer = require("multer");
+const fileUpload = multer();
 
 router.get("/all", controller.allAccess);
 router.get("/user", [authJwt.verifyToken], controller.userBoard);
@@ -19,4 +21,9 @@ router.patch(
   [authJwt.verifyToken, verifyEditUser.checkDuplicateUsernameOrEmail],
   controller.userEdit
 );
+router.post(
+  "/upload",
+  fileUpload.single("file"),
+  controller.uploadAvatar
+)
 module.exports = router;

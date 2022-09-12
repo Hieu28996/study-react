@@ -1,7 +1,58 @@
+const cloudinary = require('cloudinary')
+const streamifier = require('streamifier')
 const db = require("../models");
 var bcrypt = require("bcryptjs");
 
 const User = db.user;
+
+cloudinary.config({
+  cloud_name: "dur9uryyc",
+  api_key: "899725944425354",
+  api_secret: "B_rkxqp3N64I9Qr9Y-KsKoVvO6E",
+  secure: true
+});
+
+exports.uploadAvatar = (req, res, next) => {
+  let streamUpload = (req) => {
+    return new Promise((resolve, reject) => {
+        let stream = cloudinary.v2.uploader.upload_stream(
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+
+      streamifier.createReadStream(req.file.buffer).pipe(stream);
+    });
+  };
+
+  async function upload(req) {
+    let result = await streamUpload(req);
+    User.findOne(
+      { username: req.body.username},
+      (err, user) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+
+        user.avatar = result.url;
+        user.save(err => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+          res.status(200).send({ message: "Avatar upload successfully!" });
+        })
+      }
+    )
+  }
+
+  upload(req);
+}
 
 exports.allAccess = async (req, res) => {
   User.find({}, (err, users) => {
