@@ -6,9 +6,9 @@ var bcrypt = require("bcryptjs");
 const User = db.user;
 
 cloudinary.config({
-  cloud_name: "dur9uryyc",
-  api_key: "899725944425354",
-  api_secret: "B_rkxqp3N64I9Qr9Y-KsKoVvO6E",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
   secure: true
 });
 

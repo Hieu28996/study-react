@@ -17,7 +17,7 @@ const Users = () => {
 					const obj = item;
 					return (
 						<li key={index}>
-							{Object.keys(obj).map((item: any, index: number) => {
+							{Object.keys(obj || {}).map((item: any, index: number) => {
 								if (item === "username" || item === "password") {
 									return (
 										<button type="button" key={index}>

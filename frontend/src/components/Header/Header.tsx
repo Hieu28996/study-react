@@ -138,7 +138,7 @@ const Header = (props: any) => {
 						{user !== null && (
 							<>
 								<div className="account_avatar">
-									{Object.keys(user.avatar).length ? (
+									{Object.keys(user.avatar || []).length ? (
 										<img src={user.avatar} alt="" />
 									) : (
 										<IconAvatar width={24} height={24} color="#fff" />

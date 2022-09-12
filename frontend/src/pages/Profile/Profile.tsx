@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "components/Button";
 import ProfileBox from "components/ProfileBox";
@@ -8,9 +8,11 @@ import { UserState } from "pages/Login/Login";
 import { PostProps } from "pages/Home/Home";
 import Post from "components/Post";
 import axios from "axios";
+import { loginSuccess } from "redux/Slice/LoginSlice";
 
 const Profile = () => {
 	const [activeFilter, setActiveFilter] = useState("new");
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const currentUser = useSelector(
 		(state: UserState) => state.login.currentUser
@@ -84,10 +86,10 @@ const Profile = () => {
 								data: formData,
 								headers: { "Content-Type": "multipart/form-data" },
 							});
-							console.log(res);
 						} catch (error) {
 							console.log(error);
 						}
+						dispatch(loginSuccess);
 					}}
 				/>
 				<div className="box box_profile_info">
