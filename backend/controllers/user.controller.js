@@ -33,12 +33,13 @@ exports.uploadAvatar = (req, res, next) => {
         }
 
         user.avatar = result.url;
-        user.save(err => {
+        user.save((err, user) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
           }
-          res.status(200).send({ user: user });
+          res.status(200).send({ avatar: result.url });
+          return;
         })
       }
     )

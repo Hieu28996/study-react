@@ -7,9 +7,7 @@ import ProfileBox from "components/ProfileBox";
 import { UserState } from "pages/Login/Login";
 import { PostProps } from "pages/Home/Home";
 import Post from "components/Post";
-// import axios from "axios";
-// import { loginSuccess } from "redux/Slice/LoginSlice";
-import { uploadAvatar } from "redux/Slice/UpdateAvartarSlice";
+import { AvatarState, uploadAvatar } from "redux/Slice/UpdateAvartarSlice";
 
 const Profile = () => {
 	const [activeFilter, setActiveFilter] = useState("new");
@@ -17,6 +15,9 @@ const Profile = () => {
 	const navigate = useNavigate();
 	const currentUser = useSelector(
 		(state: UserState) => state.login.currentUser
+	);
+	const avatarUser = useSelector(
+		(state: { avatar: AvatarState }) => state.avatar.avatarUser
 	);
 	const Posts: Array<PostProps> =
 		useSelector((state: PostProps) => state.post.posts) || [];
@@ -70,8 +71,18 @@ const Profile = () => {
 			</div>
 			<div className="right_group">
 				<ProfileBox
-					image={currentUser !== null ? currentUser.avatar : ""}
-					username={currentUser !== null ? currentUser.username : ""}
+					image={
+						currentUser !== null
+							? avatarUser !== undefined
+								? avatarUser?.avatar
+								: currentUser.avatar
+							: ""
+					}
+					username={
+						currentUser !== null && avatarUser === undefined
+							? currentUser.username
+							: ""
+					}
 					onClickCreatePost={() => {
 						navigate("/main/createpost");
 					}}

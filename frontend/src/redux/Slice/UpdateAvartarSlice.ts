@@ -4,19 +4,20 @@ import type {} from 'redux-thunk/extend-redux';
 
 
 export interface AvatarState {
-  avatar?: string;
+  avatarUser?: {avatar: string};
   isLoading?: boolean;
 }
 
 export const uploadAvatar = createAsyncThunk("uploadStatus",   async (data: { username: string | Blob; avatar: string | Blob; } | undefined) => {
   const res = await uploadAvatarApi(data);
-  return res.data
+  console.log(res)
+  return res
 });
 
 const UpdateAvatarSlice = createSlice({
   name: "avatar",
   initialState: {
-    avatar: null,
+    avatarUser: null,
     isLoading: false,
   },
   reducers: {},
@@ -27,7 +28,7 @@ const UpdateAvatarSlice = createSlice({
       })
       .addCase(uploadAvatar.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.avatar = action.payload;
+        state.avatarUser = action.payload;
       })
       .addCase(uploadAvatar.rejected, state => {
         state.isLoading = false;
