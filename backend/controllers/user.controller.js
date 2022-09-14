@@ -5,13 +5,6 @@ var bcrypt = require("bcryptjs");
 
 const User = db.user;
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.API_KEY,
-  api_secret: process.env.API_SECRET,
-  secure: true
-});
-
 exports.uploadAvatar = (req, res, next) => {
   let streamUpload = (req) => {
     return new Promise((resolve, reject) => {
@@ -28,7 +21,7 @@ exports.uploadAvatar = (req, res, next) => {
       streamifier.createReadStream(req.file.buffer).pipe(stream);
     });
   };
-
+  
   async function upload(req) {
     let result = await streamUpload(req);
     User.findOne(
@@ -45,13 +38,13 @@ exports.uploadAvatar = (req, res, next) => {
             res.status(500).send({ message: err });
             return;
           }
-          res.status(200).send({ message: "Avatar upload successfully!" });
+          res.status(200).send({ user: user });
         })
       }
     )
   }
 
-  upload(req);
+  upload(req)
 }
 
 exports.allAccess = async (req, res) => {

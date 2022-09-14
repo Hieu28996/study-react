@@ -40,6 +40,22 @@ const Home = () => {
 
 	const handleSelect = (option: string) => setSelection(option);
 
+	const LazyLoad = [];
+	for (let i = 0; i < 5; i++) {
+		LazyLoad.push(
+			<Fragment key={i}>
+				<Post
+					author={""}
+					content={""}
+					interactive={0}
+					title={""}
+					dateCreated={""}
+					community={""}
+				/>
+			</Fragment>
+		);
+	}
+
 	useEffect(() => {
 		if (!User) {
 			navigate("/");
@@ -103,71 +119,23 @@ const Home = () => {
 				</div>
 				{Posts.length > 0 ? (
 					<div className="post_wrap lazy_load_list">
-						{loadingPost ? (
-							<>
-								{/* <Post
-									author={""}
-									content={""}
-									interactive={0}
-									title={""}
-									dateCreated={""}
-									community={""}
-									className={selection.toLowerCase()}
-								/>
-								<Post
-									author={""}
-									content={""}
-									interactive={0}
-									title={""}
-									dateCreated={""}
-									community={""}
-									className={selection.toLowerCase()}
-								/>
-								<Post
-									author={""}
-									content={""}
-									interactive={0}
-									title={""}
-									dateCreated={""}
-									community={""}
-									className={selection.toLowerCase()}
-								/>
-								<Post
-									author={""}
-									content={""}
-									interactive={0}
-									title={""}
-									dateCreated={""}
-									community={""}
-									className={selection.toLowerCase()}
-								/>
-								<Post
-									author={""}
-									content={""}
-									interactive={0}
-									title={""}
-									dateCreated={""}
-									community={""}
-									className={selection.toLowerCase()}
-								/> */}
-							</>
-						) : (
-							Posts?.map((item, index) => {
-								return (
-									<Fragment key={index}>
-										<Post
-											author={item.users.username}
-											content={item.content}
-											interactive={item.interactive}
-											title={item.title}
-											dateCreated={item.createDate}
-											community={item.communities.name}
-											className={selection.toLowerCase()}
-										/>
-									</Fragment>
-								);
-							})
-						)}
+						{loadingPost
+							? LazyLoad
+							: Posts?.map((item, index) => {
+									return (
+										<Fragment key={index}>
+											<Post
+												author={item.users.username}
+												content={item.content}
+												interactive={item.interactive}
+												title={item.title}
+												dateCreated={item.createDate}
+												community={item.communities.name}
+												className={selection.toLowerCase()}
+											/>
+										</Fragment>
+									);
+							  })}
 					</div>
 				) : null}
 			</div>

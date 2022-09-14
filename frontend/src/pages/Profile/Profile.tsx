@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +7,9 @@ import ProfileBox from "components/ProfileBox";
 import { UserState } from "pages/Login/Login";
 import { PostProps } from "pages/Home/Home";
 import Post from "components/Post";
-import axios from "axios";
-import { loginSuccess } from "redux/Slice/LoginSlice";
+// import axios from "axios";
+// import { loginSuccess } from "redux/Slice/LoginSlice";
+import { uploadAvatar } from "redux/Slice/UpdateAvartarSlice";
 
 const Profile = () => {
 	const [activeFilter, setActiveFilter] = useState("new");
@@ -74,22 +75,14 @@ const Profile = () => {
 					onClickCreatePost={() => {
 						navigate("/main/createpost");
 					}}
-					onChangeAvatar={async (e: React.ChangeEvent<HTMLInputElement>) => {
+					onChangeAvatar={(e: React.ChangeEvent<HTMLInputElement>) => {
 						const file = e.target.files?.[0];
-						const formData = new FormData();
-						formData.append("username", currentUser.username);
-						formData.append("file", file as string | Blob);
-						try {
-							const res = await axios({
-								method: "post",
-								url: "/api/users/upload",
-								data: formData,
-								headers: { "Content-Type": "multipart/form-data" },
-							});
-						} catch (error) {
-							console.log(error);
+
+						if (file !== undefined) {
+							dispatch(
+								uploadAvatar({ username: currentUser.username, avatar: file })
+							);
 						}
-						dispatch(loginSuccess);
 					}}
 				/>
 				<div className="box box_profile_info">

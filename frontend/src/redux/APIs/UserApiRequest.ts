@@ -13,3 +13,18 @@ export const getAllUser = async (dispatch: AppDispatch) => {
     return;
   }
 }
+
+export const uploadAvatarApi = async (data: { username: string | Blob, avatar:string | Blob } | undefined): Promise<any> => {
+  if (data !== undefined) {
+    const formData = new FormData();
+    formData.append("username", data.username);
+    formData.append("file", data.avatar);
+    const res = await axios({
+      method: "post",
+      url: "/api/users/upload",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data
+  }
+}

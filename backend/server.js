@@ -9,11 +9,17 @@ const userRoute = require("./routes/user.routes");
 const postRoute = require("./routes/post.routes");
 const communityRoute = require("./routes/communities.routes");
 const cookieParser = require("cookie-parser");
+const cloudinary = require("cloudinary");
 
 dotenv.config();
 const app = express();
 const bodyParserJSON = bodyParser.json();
 const bodyParserURLEncoded = bodyParser.urlencoded({ extended: true });
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 app.use(cors());
 app.use(bodyParserJSON);
@@ -24,21 +30,6 @@ app.use(cookieParser());
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT} port.`);
 });
-
-// Step 5 - set up multer for storing uploaded files
-
-// var multer = require('multer');
-
-// var storage = multer.diskStorage({
-// 	destination: (req, file, cb) => {
-// 		cb(null, 'uploads')
-// 	},
-// 	filename: (req, file, cb) => {
-// 		cb(null, file.fieldname + '-' + Date.now())
-// 	}
-// });
-
-// var upload = multer({ storage: storage });
 
 const db = require("./models");
 const Role = db.role;
