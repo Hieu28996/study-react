@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,16 @@ import { UserState } from "pages/Login/Login";
 import { PostProps } from "pages/Home/Home";
 import Post from "components/Post";
 import { AvatarState, uploadAvatar } from "redux/Slice/UpdateAvartarSlice";
+import { getUser } from "redux/Slice/UserSlice";
 
 const Profile = () => {
 	const [activeFilter, setActiveFilter] = useState("new");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const loginUser = useSelector((state: UserState) => state.login.currentUser);
 	const currentUser = useSelector(
-		(state: UserState) => state.login.currentUser
+		(state: { allUser: { currentUser: UserState } }) =>
+			state.allUser.currentUser
 	);
 	const avatarUser = useSelector(
 		(state: { avatar: AvatarState }) => state.avatar.avatarUser
@@ -22,6 +25,10 @@ const Profile = () => {
 	const Posts: Array<PostProps> =
 		useSelector((state: PostProps) => state.post.posts) || [];
 	const FilterPost = ["new", "hot", "top"];
+
+	useEffect(() => {
+		dispatch(getUser({ username: loginUser.username }));
+	}, [dispatch]);
 
 	return (
 		<>
@@ -51,7 +58,7 @@ const Profile = () => {
 				{Posts.length > 0 ? (
 					<div className="post_wrap lazy_load_list">
 						{Posts?.map((item, index) => {
-							if (currentUser?.username === item.users.username) {
+							if (loginUser?.username === item.users.username) {
 								return (
 									<Fragment key={index}>
 										<Post
@@ -72,36 +79,32 @@ const Profile = () => {
 			<div className="right_group">
 				<ProfileBox
 					image={
-						currentUser !== null
+						loginUser !== null
 							? avatarUser !== undefined
 								? avatarUser?.avatar
-								: currentUser.avatar
+								: loginUser.avatar
 							: ""
 					}
-					username={
-						currentUser !== null && avatarUser === undefined
-							? currentUser.username
-							: ""
-					}
+					username={loginUser !== null ? loginUser.username : ""}
 					onClickCreatePost={() => {
 						navigate("/main/createpost");
 					}}
-					onChangeAvatar={(e: React.ChangeEvent<HTMLInputElement>) => {
+					onChangeAvatar={async (e: React.ChangeEvent<HTMLInputElement>) => {
 						const file = e.target.files?.[0];
 
 						if (file !== undefined) {
-							dispatch(
-								uploadAvatar({ username: currentUser.username, avatar: file })
-							);
+							await dispatch(
+								uploadAvatar({ username: loginUser.username, avatar: file })
+							).then(() => dispatch(getUser({ username: loginUser.username })));
 						}
 					}}
 				/>
 				<div className="box box_profile_info">
 					<h3 className="box_tit">You're a moderator of these communities</h3>
 					<div className="box_content">
-						{currentUser !== null && (
+						{loginUser !== null && (
 							<ul className="community_info">
-								{currentUser.communities.map((item, index) => {
+								{loginUser.communities.map((item, index) => {
 									return (
 										<li key={index}>
 											<span className="community_name">r/{item.name}</span>

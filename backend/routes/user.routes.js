@@ -5,7 +5,7 @@ const multer = require("multer");
 const fileUpload = multer();
 
 router.get("/all", controller.allAccess);
-router.get("/user", [authJwt.verifyToken], controller.userBoard);
+router.post("/user", controller.userBoard);
 router.get(
   "/mod",
   [authJwt.verifyToken, authJwt.isModerator],
