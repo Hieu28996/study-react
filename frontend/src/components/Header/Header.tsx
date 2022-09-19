@@ -53,6 +53,15 @@ const Header = (props: any) => {
 		logoutUser(dispatch, navigate);
 	};
 
+	const handleClickControl = () => {
+		setShowAccountLayer(false);
+		const accountLayer: HTMLElement | null =
+			document.querySelector(".account_layer");
+		if (accountLayer) {
+			accountLayer.style.height = "0";
+		}
+	};
+
 	return (
 		<header className="header">
 			<h1 className="logo">
@@ -167,7 +176,11 @@ const Header = (props: any) => {
 						<div className="account_control">
 							<ul>
 								<li>
-									<Link to="/main/profile" className="account_btn">
+									<Link
+										to="/main/profile"
+										className="account_btn"
+										onClick={handleClickControl}
+									>
 										Profile
 									</Link>
 								</li>

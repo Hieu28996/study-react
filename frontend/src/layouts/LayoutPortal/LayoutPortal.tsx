@@ -8,19 +8,21 @@ import { getUser } from "redux/Slice/UserSlice";
 const LayoutPortal = () => {
 	const dispatch = useDispatch();
 	const loginUser = useSelector((state: UserState) => state.login.currentUser);
+
 	const currentUser = useSelector(
 		(state: { allUser: { currentUser: UserState } }) =>
 			state.allUser.currentUser
 	);
-	console.log(currentUser);
 
 	useEffect(() => {
-		dispatch(getUser({ username: loginUser.username }));
-	}, [dispatch]);
+		if (loginUser !== null) {
+			dispatch(getUser({ username: loginUser.username }));
+		}
+	}, [loginUser, dispatch]);
 
 	return (
 		<>
-			<Header user={currentUser.user} />
+			<Header user={currentUser?.user || loginUser} />
 			<div className="container">
 				<Outlet />
 			</div>

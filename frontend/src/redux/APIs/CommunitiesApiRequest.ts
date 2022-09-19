@@ -11,3 +11,8 @@ export const joinCommunity = async (userCommunity: any, dispatch: AppDispatch) =
     dispatch(userCommunityFail());
   }
 }
+
+export const controlCommunityApi = async (data: { username: string, community: string }) => {
+  const res = await axios.patch("/api/community/control", data);
+  return;
+} 

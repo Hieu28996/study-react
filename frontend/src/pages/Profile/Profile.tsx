@@ -7,8 +7,9 @@ import ProfileBox from "components/ProfileBox";
 import { UserState } from "pages/Login/Login";
 import { PostProps } from "pages/Home/Home";
 import Post from "components/Post";
-import { AvatarState, uploadAvatar } from "redux/Slice/UpdateAvartarSlice";
+import { uploadAvatar } from "redux/Slice/UpdateAvartarSlice";
 import { getUser } from "redux/Slice/UserSlice";
+import { controlCommunity } from "redux/Slice/CommunitiesSlice";
 
 const Profile = () => {
 	const [activeFilter, setActiveFilter] = useState("new");
@@ -19,12 +20,15 @@ const Profile = () => {
 		(state: { allUser: { currentUser: UserState } }) =>
 			state.allUser.currentUser
 	);
-	const avatarUser = useSelector(
-		(state: { avatar: AvatarState }) => state.avatar.avatarUser
-	);
 	const Posts: Array<PostProps> =
 		useSelector((state: PostProps) => state.post.posts) || [];
 	const FilterPost = ["new", "hot", "top"];
+
+	const handleControlCommunity = async (id: string) => {
+		await dispatch(
+			controlCommunity({ username: currentUser.user.username, community: id })
+		);
+	};
 
 	useEffect(() => {
 		dispatch(getUser({ username: loginUser.username }));
@@ -80,10 +84,10 @@ const Profile = () => {
 				<ProfileBox
 					image={
 						loginUser !== null
-							? avatarUser !== undefined
-								? avatarUser?.avatar
+							? currentUser !== undefined
+								? currentUser?.user.avatar
 								: loginUser.avatar
-							: ""
+							: null
 					}
 					username={loginUser !== null ? loginUser.username : ""}
 					onClickCreatePost={() => {
@@ -102,19 +106,31 @@ const Profile = () => {
 				<div className="box box_profile_info">
 					<h3 className="box_tit">You're a moderator of these communities</h3>
 					<div className="box_content">
-						{loginUser !== null && (
+						{currentUser.user.communities !== null && (
 							<ul className="community_info">
-								{loginUser.communities.map((item, index) => {
-									return (
-										<li key={index}>
-											<span className="community_name">r/{item.name}</span>
-											<Button isAround color="secondary">
-												<span className="community_join">Joined</span>
-												<span className="community_leave">Leave</span>
-											</Button>
-										</li>
-									);
-								})}
+								{currentUser.user.communities.map(
+									(
+										item: {
+											name: string;
+											_id: string;
+										},
+										index: number
+									) => {
+										return (
+											<li key={index}>
+												<span className="community_name">r/{item.name}</span>
+												<Button
+													isAround
+													color="secondary"
+													onClick={() => handleControlCommunity(item._id)}
+												>
+													<span className="community_join">Joined</span>
+													<span className="community_leave">Leave</span>
+												</Button>
+											</li>
+										);
+									}
+								)}
 							</ul>
 						)}
 					</div>

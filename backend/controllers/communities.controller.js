@@ -3,7 +3,6 @@ const db = require("../models");
 const Communities = db.communities;
 const CommunityType = db.communityType;
 const User = db.user;
-const Posts = db.posts;
 
 
 exports.createCommunity = (req, res) => {
@@ -100,5 +99,36 @@ exports.joinCommunity = async (req, res) => {
         }
       )
     }
+  })
+}
+
+exports.controlCommunity = async (req, res) => {
+  await Communities.findOne(
+    { username: req.body.community }
+  )
+  .populate("users")
+  .exec ((err, community) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    
+    // const community = user.communities.map(item => {
+    //   return item._id
+    // })
+    // community = community.map(item => item._id)
+    // console.log(community)
+    // if(community.length) {
+    //   user.communities = user.communities.filter(item => item._id !== req.body.community);
+    // } else {
+    //   user.communities = [...user.communities, req.body.community];
+    // }
+    // user.save(err => {
+    //   if (err) {
+    //     res.status(500).send({ message: err });
+    //     return;
+    //   }
+    //   res.status(200).send({ user: user });
+    // })
   })
 }
