@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import classnames from "classnames";
+import PropTypes from "prop-types";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	as?: "button" | "a" | "input";
@@ -56,6 +57,10 @@ const Button = (props: ButtonProps) => {
 			{children}
 		</button>
 	);
+};
+
+Button.propTypes = {
+	isFullWidth: PropTypes.bool,
 };
 
 export default Button;

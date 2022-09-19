@@ -19,6 +19,7 @@ export interface User {
 }
 
 export interface UserState {
+	[x: string]: any;
 	login: {
 		currentUser: {
 			avatar: string;

@@ -3,5 +3,5 @@ const { verifyCommunities } = require("../middlewares");
 const controller = require("../controllers/communities.controller.js");
 
 router.post("/create", verifyCommunities.checkDuplicateName, controller.createCommunity);
-router.patch("/join", controller.joinCommunity);
+router.patch("/control", controller.controlCommunity);
 module.exports = router;

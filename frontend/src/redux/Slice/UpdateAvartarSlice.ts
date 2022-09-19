@@ -1,22 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { uploadAvatarApi } from "redux/APIs/UserApiRequest";
 import type {} from 'redux-thunk/extend-redux';
+import { getUser } from "./UserSlice";
 
 
 export interface AvatarState {
-  avatar?: string;
+  avatarUser?: {avatar: string};
   isLoading?: boolean;
 }
 
-export const uploadAvatar = createAsyncThunk("uploadStatus",   async (data: { username: string | Blob; avatar: string | Blob; } | undefined) => {
-  const res = await uploadAvatarApi(data);
-  return res.data
+export const uploadAvatar = createAsyncThunk("uploadStatus",   async (data: { username: string; avatar: string | Blob; } | undefined) => {
+  try {
+    if(data) {
+      const res = await uploadAvatarApi(data);
+      return res
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 const UpdateAvatarSlice = createSlice({
   name: "avatar",
   initialState: {
-    avatar: null,
+    avatarUser: null,
     isLoading: false,
   },
   reducers: {},
@@ -27,7 +34,7 @@ const UpdateAvatarSlice = createSlice({
       })
       .addCase(uploadAvatar.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.avatar = action.payload;
+        state.avatarUser = action.payload;
       })
       .addCase(uploadAvatar.rejected, state => {
         state.isLoading = false;

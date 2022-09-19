@@ -1,7 +1,9 @@
-import { UserState } from "pages/Login/Login";
+import { useEffect } from "react";
 import { ReactNode } from "react";
-import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { UserState } from "pages/Login/Login";
+import { getUser } from "redux/Slice/UserSlice";
 
 export interface LayoutAdminProp {
 	children: ReactNode;
@@ -9,9 +11,17 @@ export interface LayoutAdminProp {
 
 const LayoutAdmin = (props: LayoutAdminProp) => {
 	const { children } = props;
+	const dispatch = useDispatch();
+	const loginUser = useSelector((state: UserState) => state.login.currentUser);
 	const currentUser = useSelector(
-		(state: UserState) => state.login.currentUser
+		(state: { allUser: { currentUser: UserState } }) =>
+			state.allUser.currentUser
 	);
+	console.log(currentUser);
+
+	useEffect(() => {
+		dispatch(getUser({ username: loginUser.username }));
+	}, [currentUser, loginUser]);
 
 	return (
 		<>
