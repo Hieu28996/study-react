@@ -46,16 +46,16 @@
 		padding: 0;
 		flex-direction: column;
 
-		& > * {
+		&>* {
 			width: 100%;
 		}
 	}
 
-	& + .post_wrap {
+	&+.post_wrap {
 		margin-top: 30px;
 	}
 
-	& + .box {
+	&+.box {
 		margin-top: 15px;
 	}
 }
@@ -68,7 +68,7 @@
 			margin-left: 8px;
 			flex: 1 0;
 
-			& + .btn_create_post {
+			&+.btn_create_post {
 				margin-left: 10px;
 			}
 		}
@@ -92,8 +92,28 @@
 	width: 310px;
 }
 
+.btn_pin_post {
+	display: inline-flex;
+	position: relative;
+	overflow: hidden;
+	width: 38px;
+	height: 38px;
+	border-radius: 4px;
+
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+	}
+}
+
 .btn_create_post {
 	display: inline-flex;
+	position: relative;
+	overflow: hidden;
 	width: 40px;
 	height: 40px;
 	border-radius: 4px;
@@ -106,7 +126,7 @@
 		background-color: rgba($color: #878a8c, $alpha: 0.2);
 	}
 
-	& + .btn_create_post {
+	&+.btn_create_post {
 		margin-left: 3px;
 	}
 }
@@ -141,7 +161,7 @@
 		}
 	}
 
-	& + .select {
+	&+.select {
 		margin-left: auto;
 	}
 }
