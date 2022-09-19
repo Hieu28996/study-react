@@ -70,7 +70,15 @@ const Home = () => {
 				<div className="box">
 					<div className="create_post_pin">
 						<button type="button" className="btn_pin_post">
-							<IconAvatar color="#fff" width={38} height={38} />
+							{User.avatar ? (
+								<img
+									src={User.avatar}
+									style={{ width: "38px", height: "38px" }}
+									alt=""
+								/>
+							) : (
+								<IconAvatar color="#fff" width={38} height={38} />
+							)}
 						</button>
 						<span className="status"></span>
 					</div>

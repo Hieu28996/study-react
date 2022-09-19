@@ -111,40 +111,51 @@ exports.controlCommunity = async (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
-    Communities.findById(req.body.community, (err, community) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-      user.communities = user.communities.filter(item => item !== community._id)
-      community.users = community.users.filter(item => item !== user._id)
-      // user.save(err => {
-      //   if (err) {
-      //     res.status(500).send({ message: err });
-      //     return;
-      //   }
-
-      // })
-
-      // console.log(user.communities);
-    })
-    // user.communities = user.communities.filter(community => community !== req.body.community);
-    // const community = user.communities.map(item => {
-    //   return item._id
-    // })
-    // community = community.map(item => item._id)
-    // console.log(community)
-    // if(community.length) {
-    //   user.communities = user.communities.filter(item => item._id !== req.body.community);
-    // } else {
-    //   user.communities = [...user.communities, req.body.community];
-    // }
-    // user.save(err => {
-    //   if (err) {
-    //     res.status(500).send({ message: err });
-    //     return;
-    //   }
-    //   res.status(200).send({ user: user });
-    // })
+    const hasUser = user.communities.filter(item => item.toString() === req.body.community.toString());
+    if(hasUser.length > 0) {
+      user.communities = user.communities.filter(item => item.toString() !== req.body.community.toString());
+      user.save(err => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        Communities.findById(req.body.community, (err, community) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+          community.users = community.users.filter(item => item.toString() !== user._id.toString());
+          community.save(err => {
+            if (err) {
+              res.status(500).send({ message: err });
+              return;
+            }
+            res.status(200).send({ message: "Leave community is completed" });
+          })
+        })
+      })
+    } else {
+      user.communities = [...user.communities, req.body.community]
+      user.save(err => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        Communities.findById(req.body.community, (err, community) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+          community.users = [...community.users, user._id];
+          community.save(err => {
+            if (err) {
+              res.status(500).send({ message: err });
+              return;
+            }
+            res.status(200).send({ message: "Join community is completed" });
+          })
+        })
+      });
+    }
   })
 }
