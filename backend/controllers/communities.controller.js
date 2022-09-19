@@ -103,16 +103,32 @@ exports.joinCommunity = async (req, res) => {
 }
 
 exports.controlCommunity = async (req, res) => {
-  await Communities.findOne(
-    { username: req.body.community }
+  await User.findOne(
+    { username: req.body.username }
   )
-  .populate("users")
-  .exec ((err, community) => {
+  .exec ((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
-    
+    Communities.findById(req.body.community, (err, community) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+      user.communities = user.communities.filter(item => item !== community._id)
+      community.users = community.users.filter(item => item !== user._id)
+      // user.save(err => {
+      //   if (err) {
+      //     res.status(500).send({ message: err });
+      //     return;
+      //   }
+
+      // })
+
+      // console.log(user.communities);
+    })
+    // user.communities = user.communities.filter(community => community !== req.body.community);
     // const community = user.communities.map(item => {
     //   return item._id
     // })

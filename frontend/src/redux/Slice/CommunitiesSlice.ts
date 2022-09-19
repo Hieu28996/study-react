@@ -4,7 +4,7 @@ import { controlCommunityApi } from "redux/APIs/CommunitiesApiRequest";
 export const controlCommunity = createAsyncThunk("controlCommunity",
   async (data: { username: string, community: string}) => {
     const res = await controlCommunityApi(data);
-    return;
+    return res;
   }
 )
 

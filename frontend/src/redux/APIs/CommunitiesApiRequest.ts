@@ -14,5 +14,5 @@ export const joinCommunity = async (userCommunity: any, dispatch: AppDispatch) =
 
 export const controlCommunityApi = async (data: { username: string, community: string }) => {
   const res = await axios.patch("/api/community/control", data);
-  return;
+  return res.data;
 } 

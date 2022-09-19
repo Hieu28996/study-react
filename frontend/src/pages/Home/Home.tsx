@@ -25,7 +25,7 @@ const Home = () => {
 	const navigate = useNavigate();
 	const [activeFilter, setActiveFilter] = useState("best");
 	const [selection, setSelection] = useState("");
-	const User = useSelector((state: any) => state.allUser.currentUser.user);
+	const User = useSelector((state: any) => state.allUser.currentUser?.user);
 	const Posts: Array<PostProps> =
 		useSelector((state: PostProps) => state.post.posts) || [];
 	const loadingPost = useSelector((state: PostProps) => state.post.isLoading);
@@ -59,8 +59,7 @@ const Home = () => {
 	useEffect(() => {
 		if (!User) {
 			navigate("/");
-		}
-		if (User?.accessToken) {
+		} else {
 			GetAllPosts(dispatch);
 		}
 	}, [dispatch]);
