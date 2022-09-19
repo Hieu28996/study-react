@@ -70,7 +70,7 @@ const Home = () => {
 				<div className="box">
 					<div className="create_post_pin">
 						<button type="button" className="btn_pin_post">
-							{User.avatar !== undefined ? (
+							{User !== undefined ? (
 								<img
 									src={User?.avatar}
 									style={{ width: "38px", height: "38px" }}
