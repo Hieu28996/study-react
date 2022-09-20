@@ -18,6 +18,7 @@ import {
 	getCommunityType,
 } from "redux/Slice/CommunitiesSlice";
 import { UserState } from "pages/Login/Login";
+import { getUser } from "redux/Slice/UserSlice";
 
 export interface PostProps {
 	[x: string]: any;
@@ -104,6 +105,7 @@ const Home = () => {
 		await dispatch(
 			controlCommunity({ username: User.username, community: community })
 		);
+		await dispatch(getUser({ username: User.username }));
 	};
 
 	useEffect(() => {
@@ -202,6 +204,7 @@ const Home = () => {
 					background="https://www.redditstatic.com/desktop2x/img/leaderboard/banner-background.png"
 					communities={CommunityType}
 					type={randomType}
+					userCommunity={User.communities}
 				/>
 			</div>
 		</>
