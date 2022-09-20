@@ -51,11 +51,15 @@ exports.createCommunity = (req, res) => {
                       }
 
                       res.status(200).send({ message: "done" });
+                      return;
                     })
                   });
                 }
               );
-            };
+            } else {
+              res.status(400).send({ message: "Owner community is not available" });
+              return;
+            }
           });
         }
       );

@@ -39,6 +39,7 @@ export interface CommunitiesBoxProps {
 	communities?: Array<any>;
 	background?: string;
 	onClickCommunity: (item: string) => void;
+	userCommunity?: Array<any>;
 }
 
 export interface CommunitiyProps {
@@ -49,7 +50,14 @@ export interface CommunitiyProps {
 }
 
 const CommunitiesBox = (props: CommunitiesBoxProps) => {
-	const { type, communities = [], background, onClickCommunity } = props;
+	const {
+		type,
+		communities = [],
+		background,
+		onClickCommunity,
+		userCommunity,
+	} = props;
+
 	return (
 		<div className="box box_community">
 			<div
@@ -77,14 +85,28 @@ const CommunitiesBox = (props: CommunitiesBoxProps) => {
 											<img src={item.img} alt="" />
 										</span>
 										<span className="community_name">r/{item.name}</span>
-										<Button
-											color="secondary"
-											isAround
-											className="community_btn"
-											onClick={() => onClickCommunity(item._id)}
-										>
-											Join
-										</Button>
+										{userCommunity !== undefined &&
+										userCommunity.filter(
+											(community) => community._id === item._id
+										).length > 0 ? (
+											<Button
+												color="secondary"
+												isAround
+												className="community_btn is_leaved"
+												onClick={() => onClickCommunity(item._id)}
+											>
+												Leave
+											</Button>
+										) : (
+											<Button
+												color="secondary"
+												isAround
+												className="community_btn"
+												onClick={() => onClickCommunity(item._id)}
+											>
+												Join
+											</Button>
+										)}
 									</li>
 								);
 						  })
