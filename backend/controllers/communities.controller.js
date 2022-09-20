@@ -4,6 +4,11 @@ const Communities = db.communities;
 const CommunityType = db.communityType;
 const User = db.user;
 
+exports.getCommunityType = async (req, res) => {
+  await Communities.find()
+    .populate("communitytypes")
+    .exec()
+}
 
 exports.createCommunity = (req, res) => {
   const community = new Communities({
@@ -64,44 +69,6 @@ exports.createCommunity = (req, res) => {
   })
 }
 
-exports.joinCommunity = async (req, res) => {
-  await Communities.findOne(
-    { name:  req.body.name}
-  )
-  .exec((err, community) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    if(req.body.user) {
-      User.findOne(
-        { username: req.body.user },
-        (err, user) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-          user.communities = [...user.communities, community._id]
-          user.save((err, user) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            community.users = [...community.users, user._id]
-            community.save(err => {
-              if (err) {
-                res.status(500).send({ message: err });
-                return;
-              }
-              res.status(200).send({ community: community, user: user });
-            });
-          })
-        }
-      )
-    }
-  })
-}
-
 exports.controlCommunity = async (req, res) => {
   await User.findOne(
     { username: req.body.username }
@@ -158,4 +125,34 @@ exports.controlCommunity = async (req, res) => {
       });
     }
   })
+}
+
+exports.getType = async (req, res) => {
+  await CommunityType.find({})
+  .exec((err, types) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    else {
+      res.status(200).send({ communitiesType: types });
+      return;
+    }
+  })
+}
+
+exports.getCommunityType = async (req, res) => {
+  await Communities.find()
+  .populate({
+    path: "communitytypes",
+    match: { type: { $eq: req.params.type } },
+  })
+  .exec((err, communities) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    communities = communities.filter(community => community.communitytypes.length > 0);
+    res.status(200).send({ communities: communities });
+  });
 }

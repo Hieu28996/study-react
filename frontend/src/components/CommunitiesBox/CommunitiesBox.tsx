@@ -59,11 +59,11 @@ const CommunitiesBox = (props: CommunitiesBoxProps) => {
 			</div>
 			<div className="community">
 				<ul className="community_list">
-					{communities.length > 0
+					{communities !== null && communities.length > 0
 						? communities.map((item, index) => {
 								return (
 									<li key={index}>
-										<span className="community_rank">{item.rank}</span>
+										<span className="community_rank">{index + 1}</span>
 										<span className="community_increase">
 											<IconArrow
 												width={20}
