@@ -12,6 +12,7 @@ import { ReactComponent as IconPopular } from "assets/images/icon/ic_popular.svg
 import { ReactComponent as IconPlus } from "assets/images/icon/ic_plus.svg";
 import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
 import { logoutUser } from "redux/APIs/LoginApiRequest";
+import { getUser } from "redux/Slice/UserSlice";
 
 const Header = (props: any) => {
 	const { user } = props;
@@ -53,13 +54,15 @@ const Header = (props: any) => {
 		logoutUser(dispatch, navigate);
 	};
 
-	const handleClickControl = () => {
+	const handleClickControl = async () => {
 		setShowAccountLayer(false);
 		const accountLayer: HTMLElement | null =
 			document.querySelector(".account_layer");
 		if (accountLayer) {
 			accountLayer.style.height = "0";
 		}
+
+		await dispatch(getUser({ username: user.username }));
 	};
 
 	return (
