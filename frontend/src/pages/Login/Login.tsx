@@ -8,7 +8,7 @@ import { loginUser } from "redux/APIs/LoginApiRequest";
 import { loginSuccess } from "redux/Slice/LoginSlice";
 
 export interface LoginUser {
-	username?: string;
+	username: string;
 	password?: string;
 }
 
