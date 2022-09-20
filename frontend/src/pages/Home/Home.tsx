@@ -11,7 +11,7 @@ import Select from "components/Select";
 import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
 import { ReactComponent as IconImage } from "assets/images/icon/ic_image.svg";
 import { ReactComponent as IconLink } from "assets/images/icon/ic_link.svg";
-import CommunitiesBox, { Communities } from "components/CommunitiesBox";
+import CommunitiesBox from "components/CommunitiesBox";
 import {
 	communitiesType,
 	getCommunityType,
