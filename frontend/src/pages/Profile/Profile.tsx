@@ -101,7 +101,7 @@ const Profile = () => {
 					}}
 				/>
 				<div className="box box_profile_info">
-					<h3 className="box_tit">You're a moderator of these communities</h3>
+					<h3 className="box_tit">You're a member of these communities</h3>
 					<div className="box_content">
 						{currentUser !== null && (
 							<ul className="community_info">

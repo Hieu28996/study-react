@@ -42,7 +42,7 @@ export interface CommunitiesBoxProps {
 	userCommunity?: Array<any>;
 }
 
-export interface CommunitiyProps {
+export interface CommunityProps {
 	rank?: string;
 	increase?: boolean;
 	img?: string;
