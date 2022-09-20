@@ -17,7 +17,6 @@ const LayoutAdmin = (props: LayoutAdminProp) => {
 		(state: { allUser: { currentUser: UserState } }) =>
 			state.allUser.currentUser
 	);
-	console.log(currentUser);
 
 	useEffect(() => {
 		dispatch(getUser({ username: loginUser.username }));

@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -29,12 +29,6 @@ const Profile = () => {
 			controlCommunity({ username: currentUser.user.username, community: id })
 		);
 	};
-
-	useEffect(() => {
-		if (loginUser !== null) {
-			dispatch(getUser({ username: loginUser.username }));
-		}
-	}, [dispatch, loginUser]);
 
 	return (
 		<>
