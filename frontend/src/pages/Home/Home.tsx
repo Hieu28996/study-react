@@ -12,6 +12,11 @@ import { ReactComponent as IconAvatar } from "assets/images/icon/ic_avatar.svg";
 import { ReactComponent as IconImage } from "assets/images/icon/ic_image.svg";
 import { ReactComponent as IconLink } from "assets/images/icon/ic_link.svg";
 import CommunitiesBox, { Communities } from "components/CommunitiesBox";
+import {
+	communitiesType,
+	getCommunityType,
+} from "redux/Slice/CommunitiesSlice";
+import { UserState } from "pages/Login/Login";
 
 export interface PostProps {
 	[x: string]: any;
@@ -20,15 +25,39 @@ export interface PostProps {
 	interactive?: number;
 }
 
+export interface Community {
+	_id?: string;
+	name?: string;
+	posts?: Array<PostProps>;
+	users?: Array<string>;
+	createDate?: string;
+}
+
 const Home = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [activeFilter, setActiveFilter] = useState("best");
+	const [randomType, setRandomType] = useState("");
 	const [selection, setSelection] = useState("");
-	const User = useSelector((state: any) => state.allUser.currentUser?.user);
+	const User = useSelector(
+		(state: UserState) => state.allUser.currentUser?.user
+	);
 	const Posts: Array<PostProps> =
 		useSelector((state: PostProps) => state.post.posts) || [];
+	const CommunityType = useSelector(
+		(state: { communities: { communityType: Array<Community> } }) =>
+			state.communities.communityType
+	);
+
 	const loadingPost = useSelector((state: PostProps) => state.post.isLoading);
+	const type = useSelector((state: any) => state.communities.type);
+	const randomTypes: Array<string> = [];
+
+	if (type !== null) {
+		type.communitiesType.map((item: { type: string }) => {
+			randomTypes.push(item.type);
+		});
+	}
 
 	// const refreshToken = useRefreshToken(User, dispatch, loginSuccess);
 	const FilterPost = ["best", "hot", "new", "top"];
@@ -39,6 +68,20 @@ const Home = () => {
 	};
 
 	const handleSelect = (option: string) => setSelection(option);
+
+	useEffect(() => {
+		dispatch(communitiesType());
+	}, [dispatch]);
+
+	useEffect(() => {
+		setRandomType(randomTypes[Math.floor(Math.random() * randomTypes.length)]);
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (randomType !== "") {
+			dispatch(getCommunityType({ type: randomType }));
+		}
+	}, [dispatch, randomType]);
 
 	const LazyLoad = [];
 	for (let i = 0; i < 5; i++) {
@@ -70,7 +113,15 @@ const Home = () => {
 				<div className="box">
 					<div className="create_post_pin">
 						<button type="button" className="btn_pin_post">
-							<IconAvatar color="#fff" width={38} height={38} />
+							{User !== undefined ? (
+								<img
+									src={User?.avatar}
+									style={{ width: "38px", height: "38px" }}
+									alt=""
+								/>
+							) : (
+								<IconAvatar color="#fff" width={38} height={38} />
+							)}
 						</button>
 						<span className="status"></span>
 					</div>
@@ -141,8 +192,8 @@ const Home = () => {
 			<div className="right_group">
 				<CommunitiesBox
 					background="https://www.redditstatic.com/desktop2x/img/leaderboard/banner-background.png"
-					communities={Communities}
-					type="Sport"
+					communities={CommunityType}
+					type={randomType}
 				/>
 			</div>
 		</>

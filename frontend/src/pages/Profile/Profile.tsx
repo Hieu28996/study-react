@@ -31,8 +31,10 @@ const Profile = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getUser({ username: loginUser.username }));
-	}, [dispatch]);
+		if (loginUser !== null) {
+			dispatch(getUser({ username: loginUser.username }));
+		}
+	}, [dispatch, loginUser]);
 
 	return (
 		<>
@@ -106,7 +108,7 @@ const Profile = () => {
 				<div className="box box_profile_info">
 					<h3 className="box_tit">You're a moderator of these communities</h3>
 					<div className="box_content">
-						{currentUser.user.communities !== null && (
+						{currentUser !== null && (
 							<ul className="community_info">
 								{currentUser.user.communities.map(
 									(
@@ -122,7 +124,11 @@ const Profile = () => {
 												<Button
 													isAround
 													color="secondary"
-													onClick={() => handleControlCommunity(item._id)}
+													onClick={(e) => {
+														console.log(e.target);
+
+														handleControlCommunity(item._id);
+													}}
 												>
 													<span className="community_join">Joined</span>
 													<span className="community_leave">Leave</span>

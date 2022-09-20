@@ -4,6 +4,11 @@ const Communities = db.communities;
 const CommunityType = db.communityType;
 const User = db.user;
 
+exports.getCommunityType = async (req, res) => {
+  await Communities.find()
+    .populate("communitytypes")
+    .exec()
+}
 
 exports.createCommunity = (req, res) => {
   const community = new Communities({
@@ -64,44 +69,6 @@ exports.createCommunity = (req, res) => {
   })
 }
 
-exports.joinCommunity = async (req, res) => {
-  await Communities.findOne(
-    { name:  req.body.name}
-  )
-  .exec((err, community) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    if(req.body.user) {
-      User.findOne(
-        { username: req.body.user },
-        (err, user) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-          user.communities = [...user.communities, community._id]
-          user.save((err, user) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-            community.users = [...community.users, user._id]
-            community.save(err => {
-              if (err) {
-                res.status(500).send({ message: err });
-                return;
-              }
-              res.status(200).send({ community: community, user: user });
-            });
-          })
-        }
-      )
-    }
-  })
-}
-
 exports.controlCommunity = async (req, res) => {
   await User.findOne(
     { username: req.body.username }
@@ -111,40 +78,81 @@ exports.controlCommunity = async (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
-    Communities.findById(req.body.community, (err, community) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-      user.communities = user.communities.filter(item => item !== community._id)
-      community.users = community.users.filter(item => item !== user._id)
-      // user.save(err => {
-      //   if (err) {
-      //     res.status(500).send({ message: err });
-      //     return;
-      //   }
-
-      // })
-
-      // console.log(user.communities);
-    })
-    // user.communities = user.communities.filter(community => community !== req.body.community);
-    // const community = user.communities.map(item => {
-    //   return item._id
-    // })
-    // community = community.map(item => item._id)
-    // console.log(community)
-    // if(community.length) {
-    //   user.communities = user.communities.filter(item => item._id !== req.body.community);
-    // } else {
-    //   user.communities = [...user.communities, req.body.community];
-    // }
-    // user.save(err => {
-    //   if (err) {
-    //     res.status(500).send({ message: err });
-    //     return;
-    //   }
-    //   res.status(200).send({ user: user });
-    // })
+    const hasUser = user.communities.filter(item => item.toString() === req.body.community.toString());
+    if(hasUser.length > 0) {
+      user.communities = user.communities.filter(item => item.toString() !== req.body.community.toString());
+      user.save(err => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        Communities.findById(req.body.community, (err, community) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+          community.users = community.users.filter(item => item.toString() !== user._id.toString());
+          community.save(err => {
+            if (err) {
+              res.status(500).send({ message: err });
+              return;
+            }
+            res.status(200).send({ message: "Leave community is completed" });
+          })
+        })
+      })
+    } else {
+      user.communities = [...user.communities, req.body.community]
+      user.save(err => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        Communities.findById(req.body.community, (err, community) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+          community.users = [...community.users, user._id];
+          community.save(err => {
+            if (err) {
+              res.status(500).send({ message: err });
+              return;
+            }
+            res.status(200).send({ message: "Join community is completed" });
+          })
+        })
+      });
+    }
   })
+}
+
+exports.getType = async (req, res) => {
+  await CommunityType.find({})
+  .exec((err, types) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    else {
+      res.status(200).send({ communitiesType: types });
+      return;
+    }
+  })
+}
+
+exports.getCommunityType = async (req, res) => {
+  await Communities.find()
+  .populate({
+    path: "communitytypes",
+    match: { type: { $eq: req.params.type } },
+  })
+  .exec((err, communities) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    communities = communities.filter(community => community.communitytypes.length > 0);
+    res.status(200).send({ communities: communities });
+  });
 }
