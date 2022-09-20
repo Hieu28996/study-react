@@ -14,6 +14,7 @@ import { ReactComponent as IconLink } from "assets/images/icon/ic_link.svg";
 import CommunitiesBox from "components/CommunitiesBox";
 import {
 	communitiesType,
+	controlCommunity,
 	getCommunityType,
 } from "redux/Slice/CommunitiesSlice";
 import { UserState } from "pages/Login/Login";
@@ -62,6 +63,22 @@ const Home = () => {
 	// const refreshToken = useRefreshToken(User, dispatch, loginSuccess);
 	const FilterPost = ["best", "hot", "new", "top"];
 
+	const LazyLoad = [];
+	for (let i = 0; i < 5; i++) {
+		LazyLoad.push(
+			<Fragment key={i}>
+				<Post
+					author={""}
+					content={""}
+					interactive={0}
+					title={""}
+					dateCreated={""}
+					community={""}
+				/>
+			</Fragment>
+		);
+	}
+
 	const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
 		e.preventDefault();
 		navigate("/main/createpost");
@@ -81,23 +98,13 @@ const Home = () => {
 		if (randomType !== "") {
 			dispatch(getCommunityType({ type: randomType }));
 		}
-	}, [dispatch, randomTypes]);
+	}, [dispatch, randomType]);
 
-	const LazyLoad = [];
-	for (let i = 0; i < 5; i++) {
-		LazyLoad.push(
-			<Fragment key={i}>
-				<Post
-					author={""}
-					content={""}
-					interactive={0}
-					title={""}
-					dateCreated={""}
-					community={""}
-				/>
-			</Fragment>
+	const handleCommunity = async (community: string) => {
+		await dispatch(
+			controlCommunity({ username: User.username, community: community })
 		);
-	}
+	};
 
 	useEffect(() => {
 		if (!User) {
@@ -191,6 +198,7 @@ const Home = () => {
 			</div>
 			<div className="right_group">
 				<CommunitiesBox
+					onClickCommunity={handleCommunity}
 					background="https://www.redditstatic.com/desktop2x/img/leaderboard/banner-background.png"
 					communities={CommunityType}
 					type={randomType}

@@ -4,12 +4,6 @@ const Communities = db.communities;
 const CommunityType = db.communityType;
 const User = db.user;
 
-exports.getCommunityType = async (req, res) => {
-  await Communities.find()
-    .populate("communitytypes")
-    .exec()
-}
-
 exports.createCommunity = (req, res) => {
   const community = new Communities({
     name: req.body.name,

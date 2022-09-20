@@ -38,6 +38,7 @@ export interface CommunitiesBoxProps {
 	type?: string;
 	communities?: Array<any>;
 	background?: string;
+	onClickCommunity: (item: string) => void;
 }
 
 export interface CommunitiyProps {
@@ -48,7 +49,7 @@ export interface CommunitiyProps {
 }
 
 const CommunitiesBox = (props: CommunitiesBoxProps) => {
-	const { type, communities = [], background } = props;
+	const { type, communities = [], background, onClickCommunity } = props;
 	return (
 		<div className="box box_community">
 			<div
@@ -80,6 +81,7 @@ const CommunitiesBox = (props: CommunitiesBoxProps) => {
 											color="secondary"
 											isAround
 											className="community_btn"
+											onClick={() => onClickCommunity(item._id)}
 										>
 											Join
 										</Button>

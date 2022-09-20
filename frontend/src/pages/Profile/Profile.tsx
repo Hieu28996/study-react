@@ -28,6 +28,7 @@ const Profile = () => {
 		await dispatch(
 			controlCommunity({ username: currentUser.user.username, community: id })
 		);
+		await dispatch(getUser({ username: currentUser.user.username }));
 	};
 
 	return (
@@ -118,9 +119,7 @@ const Profile = () => {
 												<Button
 													isAround
 													color="secondary"
-													onClick={(e) => {
-														console.log(e.target);
-
+													onClick={() => {
 														handleControlCommunity(item._id);
 													}}
 												>
