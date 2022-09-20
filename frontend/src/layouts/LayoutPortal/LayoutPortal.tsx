@@ -14,11 +14,11 @@ const LayoutPortal = () => {
 			state.allUser.currentUser
 	);
 
-	// useEffect(() => {
-	// 	if (loginUser !== null) {
-	// 		dispatch(getUser({ username: loginUser.username }));
-	// 	}
-	// }, [dispatch, loginUser]);
+	useEffect(() => {
+		if (loginUser !== null) {
+			dispatch(getUser({ username: loginUser.username }));
+		}
+	}, [dispatch, loginUser]);
 
 	return (
 		<>
