@@ -81,7 +81,7 @@ const Home = () => {
 		if (randomType !== "") {
 			dispatch(getCommunityType({ type: randomType }));
 		}
-	}, [dispatch]);
+	}, [dispatch, randomType]);
 
 	const LazyLoad = [];
 	for (let i = 0; i < 5; i++) {
