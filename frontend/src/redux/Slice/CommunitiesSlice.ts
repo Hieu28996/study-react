@@ -63,8 +63,7 @@ const CommunitiesSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(getCommunityType.fulfilled, (state, action) => {
-        state.communityType = action.payload.communities
-        ;
+        state.communityType = action.payload.communities;
       })
   }
 })
