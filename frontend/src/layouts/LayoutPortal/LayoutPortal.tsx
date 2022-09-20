@@ -18,7 +18,7 @@ const LayoutPortal = () => {
 		if (loginUser !== null) {
 			dispatch(getUser({ username: loginUser.username }));
 		}
-	}, [loginUser, dispatch]);
+	}, [dispatch]);
 
 	return (
 		<>
