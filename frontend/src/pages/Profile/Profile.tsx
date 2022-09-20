@@ -30,12 +30,6 @@ const Profile = () => {
 		);
 	};
 
-	useEffect(() => {
-		if (loginUser !== null) {
-			dispatch(getUser({ username: loginUser.username }));
-		}
-	}, [dispatch, loginUser]);
-
 	return (
 		<>
 			<div className="left_group">
