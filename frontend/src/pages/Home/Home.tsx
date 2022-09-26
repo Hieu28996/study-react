@@ -114,7 +114,7 @@ const Home = () => {
 		} else {
 			GetAllPosts(dispatch);
 		}
-	}, [dispatch]);
+	}, [User, dispatch]);
 
 	return (
 		<>
@@ -204,7 +204,7 @@ const Home = () => {
 					background="https://www.redditstatic.com/desktop2x/img/leaderboard/banner-background.png"
 					communities={CommunityType}
 					type={randomType}
-					userCommunity={User.communities}
+					userCommunity={User !== undefined && User.communities}
 				/>
 			</div>
 		</>

@@ -8,7 +8,6 @@ export const refreshToken = async () => {
 		const res = await axios.post("/api/auth/refresh", {
 			withCredentials: true,
 		});
-		console.log(res.data);
 		return res.data;
 	} catch (err) {
 		console.log(err);
