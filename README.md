@@ -11,7 +11,7 @@
 * Build and test in local: `npm run build` `npm install -g serve` `serve --single build`
 
 ## Test with `develop` branch
-* Link Test: <a href="[https://example.com](https://hieu28996-reddit.vercel.app/)" target="_blank">https://hieu28996-reddit.vercel.app/</a>
+* Link Test: <a href="https://hieu28996-reddit.vercel.app/" target="_blank">https://hieu28996-reddit.vercel.app/</a>
 
 ## Production with `main` branch
-* Link Website: <a href="[https://example.com](https://hieu28996-reddit.vercel.app/)" target="_blank">http://hieu28996.site/</a>
+* Link Website: <a href="http://hieu28996.site/" target="_blank">http://hieu28996.site/</a>
