@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from "components/Select";
 import Input from "components/Input";
 import Button from "components/Button";
+import DropZone from "components/DropZone";
 import { CreatePostFunc } from "redux/APIs/PostApiRequest";
 import { UserState } from "pages/Login/Login";
 
@@ -23,6 +24,8 @@ const CreatePost = () => {
 	const currentUser = useSelector(
 		(state: UserState) => state.login.currentUser
 	);
+	const Tab = ["Post", "Images&amp;Video", "Link", "Poll", "Talk"];
+	const [tab, setTab] = useState(0);
 
 	const [community, setCommunity] = useState(
 		currentUser === null ? "" : currentUser.communities[0].name
@@ -52,6 +55,32 @@ const CreatePost = () => {
 		CreatePostFunc(post, dispatch, navigate);
 	};
 
+	const handleTab = (index: number) => setTab(index);
+
+	const generateContent = () => {
+		switch (tab) {
+			case 0:
+				return (
+					<form>
+						<Input
+							name="posttitle"
+							placeholder="Title"
+							defaultValue=""
+							onChange={handleChangeTitle}
+						/>
+						<Input
+							name="postdesc"
+							placeholder="What are your throughts?"
+							defaultValue=""
+							onChange={handleChangeDesc}
+						/>
+					</form>
+				);
+			case 1:
+				return <DropZone maxFiles={5} />;
+		}
+	};
+
 	return (
 		<>
 			<div className="left_group">
@@ -71,46 +100,32 @@ const CreatePost = () => {
 					) : null}
 					<div className="create_post_wrap">
 						<ul className="create_post_list">
-							<li className="is_active">
-								<button type="button" className="tab_btn">
-									Post
-								</button>
-							</li>
-							<li>
-								<button type="button" className="tab_btn">
-									Images&amp;Video
-								</button>
-							</li>
-							<li>
-								<button type="button" className="tab_btn">
-									Link
-								</button>
-							</li>
-							<li>
-								<button type="button" className="tab_btn">
-									Poll
-								</button>
-							</li>
-							<li>
-								<button type="button" className="tab_btn">
-									Talk
-								</button>
-							</li>
+							{Tab.map((item, index) => {
+								if (tab === index) {
+									return (
+										<li className="is_active" key={index}>
+											<button
+												type="button"
+												className="tab_btn"
+												dangerouslySetInnerHTML={{ __html: item }}
+											></button>
+										</li>
+									);
+								} else {
+									return (
+										<li key={index}>
+											<button
+												type="button"
+												onClick={() => handleTab(index)}
+												className="tab_btn"
+												dangerouslySetInnerHTML={{ __html: item }}
+											></button>
+										</li>
+									);
+								}
+							})}
 						</ul>
-						<form>
-							<Input
-								name="posttitle"
-								placeholder="Title"
-								defaultValue=""
-								onChange={handleChangeTitle}
-							/>
-							<Input
-								name="postdesc"
-								placeholder="What are your throughts?"
-								defaultValue=""
-								onChange={handleChangeDesc}
-							/>
-						</form>
+						<div className="create_post_content">{generateContent()}</div>
 						<div className="btn_wrap">
 							<Button isAround>Save Draft</Button>
 							<Button

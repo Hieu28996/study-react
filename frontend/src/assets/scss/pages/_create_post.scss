@@ -2,7 +2,7 @@
 	display: flex;
 	align-items: center;
 
-	& + .content {
+	&+.content {
 		position: relative;
 		margin-top: 50px;
 
@@ -40,7 +40,7 @@
 	.select {
 		width: 300px;
 
-		& + .create_post_wrap {
+		&+.create_post_wrap {
 			margin-top: 20px;
 		}
 	}
@@ -59,10 +59,10 @@
 		justify-content: center;
 		margin: -15px -15px 0;
 
-		& + form {
+		&+.create_post_content {
 			margin-top: 30px;
 
-			& + .btn_wrap {
+			&+.btn_wrap {
 				display: flex;
 				justify-content: flex-end;
 				margin-top: 30px;
