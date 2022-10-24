@@ -7,6 +7,40 @@
   color: $black;
   transition: border-color .2s;
 
+  &_controls {
+    display: flex;
+    padding: 10px 0;
+    gap: 15px;
+  }
+
+  &_images {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &_image {
+    position: relative;
+    flex-basis: calc(50% - 4px);
+
+    &:before {
+      display: block;
+      padding-bottom: 100%;
+      content: '';
+    }
+  }
+
   &:hover {
     border-color: rgb(137, 137, 137);
   }
@@ -71,7 +105,7 @@
       margin-top: 30px;
     }
 
-    &:empty {
+    &.skeleton_loading:empty {
       width: 60%;
       height: 20px;
     }
@@ -82,8 +116,9 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 20px;
+    @include multi-ellipsis(1);
 
-    &:empty {
+    &.skeleton_loading:empty {
       width: 80%;
       height: 20px;
     }
@@ -95,8 +130,9 @@
     font-weight: 400;
     line-height: 16px;
     color: #1c1c1c;
+    @include multi-ellipsis(4);
 
-    &:empty {
+    &.skeleton_loading:empty {
       width: 100%;
       height: 96px;
     }

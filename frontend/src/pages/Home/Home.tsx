@@ -44,6 +44,9 @@ const Home = () => {
 	const User = useSelector(
 		(state: UserState) => state.allUser.currentUser?.user
 	);
+	const postLoading: boolean = useSelector(
+		(state: PostProps) => state.post.isLoading
+	);
 	const Posts: Array<PostProps> =
 		useSelector((state: PostProps) => state.post.posts) || [];
 	const CommunityType = useSelector(
@@ -184,13 +187,15 @@ const Home = () => {
 									return (
 										<Fragment key={index}>
 											<Post
-												author={item.users.username}
-												content={item.content}
+												author={item.users?.username}
+												content={item.content ? item.content : ""}
 												interactive={item.interactive}
 												title={item.title}
 												dateCreated={item.createDate}
-												community={item.communities.name}
+												community={item.communities?.name}
+												images={item.image}
 												className={selection.toLowerCase()}
+												isLoading={postLoading}
 											/>
 										</Fragment>
 									);

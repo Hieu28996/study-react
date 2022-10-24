@@ -15,6 +15,7 @@ const Posts = mongoose.model(
       ref: "Communities",
     },
     createDate: String,
+    image: [String],
   }),
 )
 

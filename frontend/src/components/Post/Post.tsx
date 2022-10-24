@@ -8,6 +8,8 @@ export interface PostProps {
 	className?: string;
 	dateCreated?: string;
 	community?: string;
+	images?: string[];
+	isLoading?: boolean;
 }
 
 const Post = (props: PostProps) => {
@@ -19,16 +21,20 @@ const Post = (props: PostProps) => {
 		className,
 		dateCreated,
 		community,
+		images,
+		isLoading,
 	} = props;
 
 	return (
-		<div className={classNames("post", `post_${className}`)}>
+		<div className={classNames("post", className && `post_${className}`)}>
 			<a href="#none" className="post_link">
 				<span className="blind">post link</span>
 			</a>
 			<div className="post_interactive">{interactive}</div>
 			<div className="post_content">
-				<div className="post_header skeleton_loading">
+				<div
+					className={classNames("post_header", isLoading && "skeleton_loading")}
+				>
 					{community && (
 						<a href="#none" className="post_author">
 							r/{community}
@@ -37,32 +43,52 @@ const Post = (props: PostProps) => {
 					{author && <span className="post_date">by {author}</span>}
 					{dateCreated && <span className="post_date">{dateCreated}</span>}
 				</div>
-				<strong className="post_title skeleton_loading">{title}</strong>
-				<p className="post_description skeleton_loading">{content}</p>
-				<div className="post_controls">
-					<ul>
-						<li>
-							<button type="button" className="post_controls_btn">
-								Comments
-							</button>
-						</li>
-						<li>
-							<button type="button" className="post_controls_btn">
-								Award
-							</button>
-						</li>
-						<li>
-							<button type="button" className="post_controls_btn">
-								Share
-							</button>
-						</li>
-						<li>
-							<button type="button" className="post_controls_btn">
-								Save
-							</button>
-						</li>
+				<strong
+					className={classNames("post_title", isLoading && "skeleton_loading")}
+				>
+					{title}
+				</strong>
+				{images !== undefined && images?.length > 0 && (
+					<ul className="post_images">
+						{images.map((item, index) => {
+							return (
+								<li key={index} className="post_image">
+									<img src={item} alt="" />
+								</li>
+							);
+						})}
 					</ul>
-				</div>
+				)}
+				<p
+					className={classNames(
+						"post_description",
+						isLoading && "skeleton_loading"
+					)}
+				>
+					{content}
+				</p>
+				<ul className="post_controls">
+					<li>
+						<button type="button" className="post_controls_btn">
+							Comments
+						</button>
+					</li>
+					<li>
+						<button type="button" className="post_controls_btn">
+							Award
+						</button>
+					</li>
+					<li>
+						<button type="button" className="post_controls_btn">
+							Share
+						</button>
+					</li>
+					<li>
+						<button type="button" className="post_controls_btn">
+							Save
+						</button>
+					</li>
+				</ul>
 			</div>
 		</div>
 	);

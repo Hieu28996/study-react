@@ -75,12 +75,14 @@
       border-radius: 5px;
       border: 2px solid transparent;
       box-sizing: border-box;
-      transition: border-color .2s;
+      background-color: #fff;
+      transition: opacity 0.2s;
+      opacity: .4;
       content: '';
     }
 
     &.is_active:before {
-      border-color: rgba($color: #000, $alpha: .6);
+      opacity: 0;
     }
 
     img {

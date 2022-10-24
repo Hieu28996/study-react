@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import classNames from "classnames";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -68,7 +68,8 @@ const Profile = () => {
 											interactive={item.interactive}
 											title={item.title}
 											dateCreated={item.createDate}
-											community={item.communities.name}
+											community={item.communities?.name}
+											images={item.image}
 										/>
 									</Fragment>
 								);

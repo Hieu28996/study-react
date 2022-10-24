@@ -7,6 +7,7 @@ export const registerUser = async(user: SignUpUser, dispatch: AppDispatch, navig
   dispatch(registerStart());
   try {
     const res = await axios.post("/api/auth/signup", user);
+    
     dispatch(registerSuccess(res.data));
     navigate("/");
   } catch (error) {

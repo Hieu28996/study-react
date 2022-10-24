@@ -1,4 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PostProps } from "pages/CreatePost/CreatePost";
+import { createPostFunc } from "redux/APIs/PostApiRequest";
+
+export const createPost = createAsyncThunk("createPost",   async (data: PostProps) => {
+  try {
+    if(data) {
+      const res = await createPostFunc(data);
+      return res
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 const PostSlice = createSlice({
   name: "post",
@@ -23,19 +36,21 @@ const PostSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
     },
-    createStart: state => {
-      state.isLoading = true;
-      state.isError = false;
-    },
-    createSuccess: (state, action) => {
-      state.post = action.payload;
-      state.isLoading = false;
-      state.isError = false;
-    },
-    createFail: state => {
-      state.isLoading = false;
-      state.isError = true;
-    },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(createPost.pending, state => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(createPost.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isError = false;
+      })
+      .addCase(createPost.rejected, state => {
+        state.isLoading = false;
+        state.isError = true;
+      })
   }
 });
 
@@ -43,9 +58,6 @@ export const {
   postStart,
   postSuccess,
   postFail,
-  createStart,
-  createSuccess,
-  createFail
 } = PostSlice.actions;
 
 export default PostSlice.reducer;

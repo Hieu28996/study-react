@@ -3,18 +3,21 @@ import classNames from "classnames";
 import { ReactComponent as IconClose } from "assets/images/icon/ic_close.svg";
 import { ReactComponent as IconPlus } from "assets/images/icon/ic_plus.svg";
 import { useState } from "react";
+import console from "console";
 
 export interface DropZoneProps {
-	maxFiles: number;
+	maxFiles?: number;
+	onChangeEvent: (acceptedFiles: File[]) => void;
 }
 
 const DropZone = (props: DropZoneProps) => {
-	const { maxFiles } = props;
+	const { maxFiles, onChangeEvent } = props;
 	const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
 		accept: {
 			"image/png": [".png", ".jpg", ".jepg"],
 		},
 		maxFiles: maxFiles,
+		onDrop: (acceptedFiles) => onChangeEvent(acceptedFiles),
 	});
 	const [imageSelected, setImageSelected] = useState(0);
 
@@ -51,7 +54,11 @@ const DropZone = (props: DropZoneProps) => {
 						);
 					})}
 				<li {...getRootProps({ className: "dropzone" })}>
-					<input {...getInputProps()} className="dropzone_inp" />
+					<input
+						{...getInputProps()}
+						// onChange={() => console.log(123)}
+						className="dropzone_inp"
+					/>
 					<p className="dropzone_text">
 						Drag and drop files here, or click to select files
 					</p>

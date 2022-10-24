@@ -1,7 +1,7 @@
 import axios from "axios";
-// import { PostProps } from "components/Post";
+import { PostProps } from "pages/CreatePost/CreatePost";
 import { AppDispatch } from "redux/store";
-import { postStart, postSuccess, postFail, createStart, createSuccess, createFail } from "../Slice/PostSlice";
+import { postStart, postSuccess, postFail } from "../Slice/PostSlice";
 
 export const GetAllPosts = async(dispatch: AppDispatch) => {
   dispatch(postStart());
@@ -13,13 +13,27 @@ export const GetAllPosts = async(dispatch: AppDispatch) => {
   }
 }
 
-export const CreatePostFunc =async (post: any, dispatch: AppDispatch, navigate: (param: string) => void) => {
-  dispatch(createStart());
-  try {
-    const res = await axios.post("/api/posts/create", post);
-    dispatch(createSuccess(res.data));
-    navigate("/main/home")
-  } catch (error) {
-    dispatch(createFail());
+export const createPostFunc =async (data: PostProps) => {
+  if (data !== undefined) {
+    const formData = new FormData();
+
+    Object.keys(data).map((item) => {
+      if(item !== "image") {        
+        formData.append(item, data[item as keyof PostProps]);
+      } else {
+        data[item].forEach((file: any)=>{
+          formData.append("file", file);
+        })
+      }
+    })
+    
+    const res = await axios({
+      method: "post",
+      url: "/api/posts/create",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    return res.data
   }
 }
+

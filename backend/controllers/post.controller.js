@@ -1,4 +1,6 @@
 const db = require("../models");
+const cloudinary = require('cloudinary')
+const streamifier = require('streamifier')
 
 const Posts = db.posts;
 const User = db.user;
@@ -28,11 +30,36 @@ exports.createPost = (req, res) => {
     createDate: new Date(),
   })
 
-  post.save((err, post) => {
+  const streamUpload = (file) => {
+    return new Promise((resolve, reject) => {
+        let stream = cloudinary.v2.uploader.upload_stream(
+          (error, result) => {
+            if (result) {
+              resolve({result: result.url});
+            } else {
+              reject(error);
+            }
+          }
+          );
+          streamifier.createReadStream(file.buffer).pipe(stream);
+    });
+  };
+  const filesUpload = [];
+
+  const upload = async (req) => {
+    for (const file of req.files){
+      const result = await streamUpload(file);
+      filesUpload.push(result.result)
+    }
+  }
+
+
+  post.save(async (err, post) => {
     if(err) {
       res.status(500).send({ message: err });
       return;
     }
+    await upload(req)
     if(req.body.author) {
       User.findOne(
         { username: req.body.author }
@@ -56,7 +83,10 @@ exports.createPost = (req, res) => {
                   res.status(500).send({ message: err });
                   return;
                 }
-                post.communities = community._id
+                if(filesUpload.length) {
+                  filesUpload.map(item => post.image.push(item));
+                }
+                post.communities = community._id;
                 post.save(err => {
                   if (err) {
                     res.status(500).send({ message: err });

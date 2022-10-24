@@ -89,7 +89,10 @@
 }
 
 .right_group {
+	position: sticky;
+	top: 100px;
 	width: 310px;
+	height: 100%;
 }
 
 .btn_pin_post {

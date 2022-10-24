@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "components/Select";
 import Input from "components/Input";
 import Button from "components/Button";
 import DropZone from "components/DropZone";
-import { CreatePostFunc } from "redux/APIs/PostApiRequest";
+// import { CreatePostFunc } from "redux/APIs/PostApiRequest";
 import { UserState } from "pages/Login/Login";
+import { createPost } from "redux/Slice/PostSlice";
 
 export interface PostProps {
 	title?: string;
@@ -14,21 +15,23 @@ export interface PostProps {
 	author?: string;
 	interactive?: number;
 	community?: string;
+	image?: any;
 }
 
 const CreatePost = () => {
 	const [titlePost, setTitlePost] = useState("");
 	const [contentPost, setContentPost] = useState("");
+	const [file, setFile] = useState({});
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const currentUser = useSelector(
-		(state: UserState) => state.login.currentUser
+		(state: UserState) => state.allUser.currentUser
 	);
 	const Tab = ["Post", "Images&amp;Video", "Link", "Poll", "Talk"];
 	const [tab, setTab] = useState(0);
 
 	const [community, setCommunity] = useState(
-		currentUser === null ? "" : currentUser.communities[0].name
+		currentUser === null ? "" : currentUser.user.communities[0].name
 	);
 
 	const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,14 +51,20 @@ const CreatePost = () => {
 			title: titlePost,
 			content: contentPost,
 			interactive: 0,
-			author: currentUser.username,
+			author: currentUser.user.username,
 			community: community,
+			image: file,
 		};
 
-		CreatePostFunc(post, dispatch, navigate);
+		dispatch(createPost(post));
+		navigate("/main/home");
 	};
 
 	const handleTab = (index: number) => setTab(index);
+
+	const handleUploadFile = (file: File[]) => {
+		setFile(file);
+	};
 
 	const generateContent = () => {
 		switch (tab) {
@@ -77,7 +86,19 @@ const CreatePost = () => {
 					</form>
 				);
 			case 1:
-				return <DropZone maxFiles={5} />;
+				return (
+					<>
+						<form>
+							<Input
+								name="posttitle"
+								placeholder="Title"
+								defaultValue=""
+								onChange={handleChangeTitle}
+							/>
+						</form>
+						<DropZone maxFiles={5} onChangeEvent={handleUploadFile} />;
+					</>
+				);
 		}
 	};
 
@@ -95,7 +116,9 @@ const CreatePost = () => {
 						<Select
 							activeOption={0}
 							onClickSelect={handleSelect}
-							options={currentUser.communities.map((item) => item.name)}
+							options={currentUser.user.communities.map(
+								(item: { name: string }) => item.name
+							)}
 						/>
 					) : null}
 					<div className="create_post_wrap">
@@ -132,7 +155,7 @@ const CreatePost = () => {
 								color="secondary"
 								isAround
 								onClick={handleSubmit}
-								disabled={contentPost && titlePost && community ? false : true}
+								disabled={titlePost && community ? false : true}
 							>
 								Post
 							</Button>
